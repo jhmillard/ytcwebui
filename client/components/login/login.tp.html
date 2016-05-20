@@ -1,0 +1,67 @@
+
+<div layout="row" layout-xs="column">
+  <div flex></div>
+  <div flex>
+    <md-toolbar class="md-table-toolbar md-default">
+      <div class="md-toolbar-tools white-text">
+        <span>Portal Login</span>
+        <span flex></span>
+          <div>
+            <h5><a href="/signup">New User</a></h5>
+          </div>
+        <!--<div>{{contractordash.currentuser.first_name}} {{contratordash.currentuser.last_name}}</div>-->
+        <!--<md-button ng-if=!time.showform ng-click="time.showinputform()">Add Time</md-button>-->
+        <!--<md-button class="md-primary">Accent Hue 1</md-button>-->
+        <!--<div ng-if="!time.showform"><a ng-click="time.showinputform()"><i class="material-icons">playlist_add</i></a></div>-->
+      </div>
+    </md-toolbar>
+    <md-content ng-if="!login.isLoggedIn()" layout-padding="">
+      <div>
+        <form class="form" name="form" ng-submit="login.login(form)">
+          <div layout-gt-xs="row">
+            <md-input-container class="md-block" flex-gt-sm="">
+              <!--<md-icon><i class="material-icons">perm_identity</i></md-icon>-->
+              <label>Email (required)</label>
+              <input type="email" name="email" class="form-control" ng-model="login.user.email" required>
+              <div ng-messages="form.email.$error" ng-hide="login.showHints">
+                <div ng-message-exp="['required']">
+                  Email Required.
+                </div>
+              </div>
+            </md-input-container>
+            </div>
+            <div layout-gt-xs="row">
+            <md-input-container class="md-block" flex-gt-sm="">
+              <!--<md-icon><i class="material-icons">perm_identity</i></md-icon>-->
+              <label>Password (required)</label>
+              <input type="password" name="password" class="form-control" ng-model="login.user.password" required>
+              <div ng-messages="form.password.$error" ng-hide="login.showHints">
+                <div ng-message-exp="['required']">
+                  Password Required.
+                </div>
+              </div>
+            </md-input-container>
+
+            </div>
+
+            <div layout="row">
+              <button class="btn btn-inverse btn-lg btn-login" type="submit">
+                Login
+              </button>
+              <div flex="5" hide-xs="" hide-sm="">
+                <!-- Spacer //-->
+              </div>
+
+
+            </div>
+
+
+          </form>
+        </div>
+      <div layout="row"><p class="help-block">{{ login.errors.other }}</p></div>
+
+      </md-content>
+    </div>
+  <div flex></div>
+ </div>
+

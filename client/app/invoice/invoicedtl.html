@@ -1,0 +1,144 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+
+    <div>Invoice Detail:</div>
+
+  </div>
+</md-toolbar>
+
+<md-content layout-padding="">
+  <div>
+    <form class="form" name="invoiceForm" ng-submit="invdtl.register(invoiceForm,previousPage)">
+
+      <!--<div layout-gt-xs="row">-->
+
+        <!--<div flex>-->
+          <!--<h6>Invoice Entered</h6>-->
+          <!--<div>-->
+            <!--<md-datepicker type="date" ng-model="invdtl.currentinvoice.date" md-placeholder="Invoice Date"></md-datepicker>-->
+          <!--</div>-->
+        <!--</div>-->
+
+
+
+
+      <!--</div>-->
+
+      <div layout-gt-xs="row">
+
+        <div flex>
+          <md-input-container class="md-block" flex-gt-xs="">
+            <label>Invoice ID (Required)</label>
+            <input ng-model="invdtl.currentinvoice.name" required="">
+            <div ng-messages="invdtl.currentinvoice.name.$error" ng-hide="showHints">
+              <div ng-message-exp="['required']">
+                You must have an Invoice ID
+              </div>
+            </div>
+          </md-input-container>
+        </div>
+        <div flex>
+          <md-input-container class="md-block" flex-gt-sm="">
+            <!--<md-icon><i class="material-icons">perm_identity</i></md-icon>-->
+            <label>Purchase Order (required)</label>
+            <md-select name="po" id="po" ng-model="invdtl.currentinvoice.po" ng-change="invdtl.settimesheets()"required>
+              <md-option ng-repeat="(i,item) in invdtl.pos" ng-value="{{item}}"
+                         ng-selected="i == 0 ? true:false">
+                {{item.poid}}
+              </md-option>
+            </md-select>
+            <div ng-messages="invdtl.currentinvoice.$error" ng-hide="showHints">
+              <div ng-message-exp="['required']">
+                Purchase Order Required.
+              </div>
+            </div>
+          </md-input-container>
+        </div>
+
+
+      </div>
+
+      <md-table-container>
+        <table md-table md-row-select="true" ng-model="invdtl.selected">
+          <thead md-head md-order="query.order">
+          <tr md-row>
+            <th md-column md-order-by="po.name">PO name</th>
+            <th md-column md-order-by="short_date">Date Entered</th>
+            <th md-column md-order-by="hours">Hours</th>
+            <th md-column>Desc</th>
+            <th md-column>Contractor Name</th>
+            <th md-column>Rate</th>
+            <!--<th md-column>Delete</th>-->
+
+          </tr>
+          </thead>
+          <tbody md-body>
+          <!-- we can let ng-repeat sort the columns for us -->
+          <tr md-row md-on-select="invdtl.check_error()" md-select="t" ng-repeat="t in invdtl.timesheets| orderBy: query.order | limitTo: query.limit: (query.page-1) * query.limit">
+
+            <td md-cell>{{t.name}}</td>
+            <td md-cell>{{t.short_date}}</td>
+            <td md-cell>{{t.hours}}</td>
+            <td md-cell>{{t.desc}}</td>
+            <td md-cell>{{t.contractor_name}}</td>
+            <td md-cell>{{t.rate}}/hr</td>
+
+
+            <!--<td md-cell><a ng-click="time.removeitem($index)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
+
+            <!--<td md-cell><a ng-click="time.delete(t)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
+          </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+
+      <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{time.currentuser.timesheets.length}}"></md-table-pagination>
+
+
+
+      <div layout-gt-xs="row">
+
+        <div flex>
+          <h5>Hours Total: <span>{{invdtl.selected|sumByKey:'hours'}}</span></h5>
+        </div>
+        <div flex>
+          <h5>Contractor Cost: <span>{{invdtl.selected|sumByKey:'contractor_cost'| currency:"$"}}</span></h5>
+        </div>
+        <div flex>
+          <h5>Client revenue: <span>{{invdtl.selected|sumByKey:'client_revenue'| currency:"$"}}</span></h5>
+        </div>
+        <div flex>
+          <h5>MY revenue: <span>{{invdtl.selected|sumByKey:'my_revenue'| currency:"$"}}</span></h5>
+        </div>
+
+      </div>
+
+      <md-divider></md-divider>
+      <div layout-gt-xs="row">
+        <br>
+      </div>
+
+      <div layout-gt-xs="row">
+        <div>
+          <button class="btn btn-inverse btn-lg btn-register" type="submit">
+            {{invdtl.submit}}
+          </button>
+          <a class="btn btn-default btn-lg btn-login" ng-click="invdtl.cancel(previousPage)">
+            Cancel
+          </a>
+        </div>
+
+        <div flex="5" hide-xs="" hide-sm="">
+          <!-- Spacer //-->
+        </div>
+
+        <div flex class="error">{{invdtl.error_string}}</div>
+      </div>
+    </form>
+  </div>
+</md-content>
+
+
+
+
+

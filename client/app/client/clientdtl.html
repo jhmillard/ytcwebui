@@ -1,0 +1,156 @@
+
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <span>Create/Update New Client</span>
+  </div>
+</md-toolbar>
+
+<!--var ClientSchema = new mongoose.Schema({-->
+<!--name: String,-->
+<!--info: String,-->
+<!--addr1: String,-->
+<!--addr2: String,-->
+<!--city: String,-->
+<!--state: String,-->
+<!--zip: String,-->
+<!--rate: Number,-->
+<!--contact: {-->
+<!--type: mongoose.Schema.Types.ObjectId, ref: 'User'-->
+<!--},-->
+<!--active: Boolean-->
+<!--});-->
+
+<md-content layout-padding="">
+  <div>
+    <form class="form" name="clientForm" ng-submit="clientdtl.register(clientForm)">
+
+      <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-xs="">
+          <label>Client ID (Required)</label>
+          <input id="currentclient" name="currentclient" ng-model="clientdtl.currentclient.name" required="">
+          <div ng-messages="clientForm.currentclient.$error" ng-hide="showHints">
+            <div ng-message-exp="['required']">
+              You must have a Client Id
+            </div>
+          </div>
+        </md-input-container>
+      </div>
+      <div layout="row">
+        <md-input-container class="md-block" flex-gt-xs="">
+          <label>Client Info/Description (Required)</label>
+          <input id="info" name="info" ng-model="clientdtl.currentclient.info" required="">
+          <div ng-messages="clientForm.info.$error" ng-hide="showHints">
+            <div ng-message-exp="['required']">
+              Client Information Required.
+            </div>
+          </div>
+        </md-input-container>
+
+      </div>
+
+      <div layout="row">
+        <md-input-container class="md-block" flex-gt-xs="">
+          <label>Address Line 1: (Required)</label>
+          <input id="addr1" name="addr1" ng-model="clientdtl.currentclient.addr1" required="">
+          <div ng-messages="clientForm.addr1.$error" ng-hide="showHints">
+            <div ng-message-exp="['required']">
+              Address Line One Required.
+            </div>
+          </div>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-xs="">
+          <label>Address Line 2:</label>
+          <input id="addr2" name="addr2" ng-model="clientdtl.currentclient.addr2">
+        </md-input-container>
+      </div>
+
+      <div layout="row">
+        <md-input-container class="md-block" flex-gt-xs="">
+          <label>City: (Required)</label>
+          <input id="city" name="city" ng-model="clientdtl.currentclient.city" required="">
+          <div ng-messages="clientForm.city.$error" ng-hide="showHints">
+            <div ng-message-exp="['required']">
+              City Required.
+            </div>
+          </div>
+        </md-input-container>
+
+        <!--This is where we need a select box for the STATE!-->
+
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>State</label>
+          <md-select id="state" name="state" ng-model="clientdtl.currentclient.state" required="">
+            <md-option ng-repeat="state in states" value="{{state.abbrev}}">
+              {{state.abbrev}}
+            </md-option>
+          </md-select>
+          <div ng-messages="clientForm.state.$error" ng-hide="showHints">
+            <div ng-message-exp="['required']">
+              State Required.
+            </div>
+          </div>
+        </md-input-container>
+      </div>
+
+      <!--ZIP CODE ROW-->
+      <div layout="row">
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>Postal Code</label>
+          <input name="zip" id="zip" ng-model="clientdtl.currentclient.zip" placeholder="#####" required="" ng-pattern="/^[0-9]{5}$/" md-minlength="5" md-maxlength="5">
+
+          <div ng-messages="userForm.zip.$error" role="alert" multiple="">
+            <div ng-message="required" class="my-message">You must supply a postal code.</div>
+            <div ng-message="pattern" class="my-message">That doesn't look like a valid postal
+              code.
+            </div>
+            <div ng-message="md-maxlength" class="my-message">
+              Don't use the long version silly...we don't need to be that specific...
+            </div>
+            <div ng-message="md-minlength" class="my-message">
+              Zip code requires atleast 5 digits
+            </div>
+          </div>
+        </md-input-container>
+      </div>
+
+      <div layout="row">
+        <md-input-container class="md-block" flex-gt-xs="">
+          <label>Rate: (Required)</label>
+          <input id="rate" name="rate" type="number" ng-model="clientdtl.currentclient.rate" required="">
+          <div ng-messages="clientForm.rate.$error" ng-hide="showHints">
+            <div ng-message-exp="['required']">
+              Rate Required.
+            </div>
+          </div>
+        </md-input-container>
+
+      </div>
+
+      <div layout-gt-xs="row">
+
+        <md-input-container>
+          <!--<md-icon><i class="material-icons">perm_identity</i></md-icon>-->
+          <label>Contact</label>
+          <md-select name="contact" ng-model="clientdtl.currentclient.contact">
+            <md-option ng-repeat="user in clientdtl.contacts | filter:{role: 'contact'}" value="{{user._id}}">
+              {{user.first_name}} {{user.last_name}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+
+      <div>
+        <button class="btn btn-inverse btn-lg btn-register" type="submit">
+          {{clientdtl.submit}}
+        </button>
+        <a class="btn btn-default btn-lg btn-login" ng-click="clientdtl.cancel(previousPage)">
+          Cancel
+        </a>
+      </div>
+
+      <div flex="5" hide-xs="" hide-sm="">
+        <!-- Spacer //-->
+      </div>
+    </form>
+  </div>
+</md-content>

@@ -1,0 +1,70 @@
+
+
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <span>Client Maintenance</span>
+  </div>
+</md-toolbar>
+
+
+
+<!--name: "ClientA",-->
+<!--info: "This is a test Client ONE",-->
+<!--addr1: "1234 Street",-->
+<!--addr2: "",-->
+<!--city: "Caledonia",-->
+<!--state: "MI",-->
+<!--zip: "49316",-->
+<!--rate: 100-->
+
+
+
+
+<md-table-container>
+  <table md-table md-row-select="true">
+    <thead md-head md-order="query.order">
+    <tr md-row>
+      <th md-column md-order-by="name"><span>Client Name</span></th>
+      <th md-column>Info</th>
+      <th md-column>Address</th>
+      <th md-column></th>
+      <th md-column>City</th>
+      <th md-column>State</th>
+      <th md-column>Zip</th>
+      <th md-column md-order-by="rate">Rate</th>
+      <th md-column>Delete</th>
+
+    </tr>
+    </thead>
+    <tbody md-body>
+    <!-- we can let ng-repeat sort the columns for us -->
+    <tr md-row md-select="cl" md-on-select="logItem" md-auto-select="options.autoSelect" ng-repeat="cl in client.clientlist | orderBy: query.order | limitTo: query.limit: (query.page-1) * query.limit">
+      <td md-cell><a href="/clientdtl?clientid={{cl._id}}">{{cl.name}}</a></td>
+      <td md-cell>{{cl.info}}</td>
+      <td md-cell>{{cl.addr1}}</td>
+      <td md-cell>{{cl.addr2}}</td>
+      <td md-cell>{{cl.city}}</td>
+      <td md-cell>{{cl.state}}</td>
+      <td md-cell>{{cl.zip}}</td>
+      <td md-cell>{{cl.rate}}</td>
+      <!--<td md-cell><a href="/clientdtl?id={{cl._id}}"><i class="material-icons">update</i></a></td>-->
+      <td md-cell><a ng-click=""><i class="material-icons">delete</i></a></td>
+    </tr>
+    </tbody>
+  </table>
+</md-table-container>
+
+<md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{client.clientlist.length}}"></md-table-pagination>
+<div layout="row">
+<span flex></span>
+  <!--<md-button class="md-raised md-primary" style="color: white" href="/clientdtl">New Client</md-button>-->
+
+  <md-button class="btn btn-inverse btn-lg" href="/clientdtl">
+    <i class="material-icons">playlist_add</i><span>New Client</span>
+  </md-button>
+
+</div>
+
+
+
+

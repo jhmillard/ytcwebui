@@ -1,0 +1,176 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools white-text">
+    <span>Client Dashboard</span>
+    <span flex></span>
+    <div layout-margin hide-sm hide-xs>{{clientdash.currentUser.first_name}} {{clientdash.currentUser.last_name}}:</div>
+    <div layout-margin hide-sm hide-xs  >{{clientdash.currentUser.client_name}}</div>
+    <div><img class="img-user-avatar" src="{{clientdash.currentUser.img_url}}" class="md-avatar" alt="image caption"></div>
+
+  </div>
+</md-toolbar>
+
+<div layout-gt-xs="row" class="top-admin">
+
+  <div flex layout-margin class="contractor-sublist">
+    <div flex class="grey-heading">
+      <h4>Current Purchase Orders</h4>
+      <div>
+        <md-table-container>
+          <table md-table md-row-select="true">
+            <thead md-head md-order="query.order">
+            <tr md-row>
+              <th md-column>PO Id</th>
+              <th md-column>Hours</th>
+              <th md-column>Contractor</th>
+
+              <th md-column>Warn Level</th>
+              <!--<th md-column>Delete</th>-->
+
+            </tr>
+            </thead>
+            <tbody md-body>
+            <!-- we can let ng-repeat sort the columns for us -->
+            <tr md-row ng-repeat="p in clientdash.clientPos | orderBy: query.order | limitTo: query.limit: (query.page-1) * query.limit">
+              <td md-cell><a href="/contractorpo?poid={{p._id}}">{{p.poid}}</a></td>
+              <td md-cell>{{p.hours}}</td>
+              <td md-cell layout-margin><img class="img-user-avatar" src="{{p.contractor_image}}" class="md-avatar" alt="image caption"> {{p.contractor_name}}</td>
+
+              <!--<td md-cell ng-show="p.warning_high" layout-margin><i class="material-icons" style="color:red">warning</i></td>-->
+              <td md-cell ng-show="p.warning_high" layout-margin ><i class="material-icons md-36" style="color:red">fiber_manual_record</i></td>
+              <td md-cell ng-show="p.warning_medium" layout-margin ><i class="material-icons md-36" style="color:orange">fiber_manual_record</i></td>
+              <td md-cell ng-show="p.warning_low" layout-margin ><i class="material-icons md-36" style="color:green">fiber_manual_record</i></td>
+
+
+              <!--<td md-cell><a ng-click="time.removeitem($index)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
+
+              <!--<td md-cell><a ng-click="time.delete(t)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
+            </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+
+        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{contractordash.contractorTimesheets.length}}"></md-table-pagination>
+
+      </div>
+
+      <md-divider></md-divider>
+
+        <div layout="row">
+          <div>warning levels:</div>
+        </div>
+
+      <div layout="row" layout-align="center center" layout-margin>
+        <div flex="33">
+          <h6>Low</h6>
+          <h7>( <50% utilization )</h7>
+        </div>
+        <div flex="33">
+          <h6>Medium</h6>
+          <h7>( 50% - 90% )</h7>
+        </div>
+        <div flex="33">
+          <h6>High</h6>
+          <h7>( >90% utilization )</h7>
+        </div>
+      </div>
+      <div layout="row" layout-align="center center" layout-margin>
+        <div flex="33">
+          <i class="material-icons md-24" style="color:green">fiber_manual_record</i>
+        </div>
+        <div flex="33">
+          <i class="material-icons md-24" style="color:orange">fiber_manual_record</i>
+        </div>
+        <div flex="33">
+          <i class="material-icons md-24" style="color:red">fiber_manual_record</i>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+
+  <div flex layout-margin class="contractor-sublist">
+    <div flex class="grey-heading">
+      <h4>Current Invoices</h4>
+      <div>
+        <md-table-container>
+          <table md-table md-row-select="true">
+            <thead md-head md-order="query.order">
+            <tr md-row>
+              <th md-column>Date</th>
+              <th md-column>Invoice</th>
+              <th md-column>Status</th>
+              <!--<th md-column>Delete</th>-->
+
+            </tr>
+            </thead>
+            <tbody md-body>
+            <!-- we can let ng-repeat sort the columns for us -->
+            <tr md-row ng-repeat="i in clientdash.openInvoices | orderBy: query.order | limitTo: query.limit: (query.page-1) * query.limit">
+              <td md-cell>{{i.date}}</td>
+              <td md-cell><a href="/invoiceview?invoice={{i._id}}">{{i.name}}</a></td>
+              <td md-cell>
+                <md-chips>
+                  <md-chip ng-show="i.status=='entered'" style="background-color:yellow; color:darkslategrey">Entered</md-chip>
+                  <md-chip ng-show="i.status=='invoiced'" style="background-color:red; color:white">Invoiced</md-chip>
+                  <md-chip ng-show="i.status=='sent'" style="background-color:green; color:white">Sent</md-chip>
+                  <md-chip ng-show="i.status=='received'" style="background-color:green; color:white">Complete</md-chip>
+                  <md-chip ng-show="i.status=='paid'" style="background-color:green; color:white">Complete</md-chip>
+                </md-chips>
+              </td>
+              <!--<td md-cell><a  href="/timeentrydtl/{{contractordash.currentUser._id}}/{{t._id}}">{{t.short_date}}</a></td>-->
+              <!--<td md-cell>{{t.hours}}</td>-->
+              <!--<td md-cell>{{t.category}}</td>-->
+
+
+              <!--<td md-cell><a ng-click="time.removeitem($index)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
+
+              <!--<td md-cell><a ng-click="time.delete(t)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
+            </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+
+        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{clientdash.openInvoices.length}}"></md-table-pagination>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--<div layout-gt-xs="row" class="top-admin">-->
+
+  <!--&lt;!&ndash;Place Holder for Chart that shows the time usage over time for each PO.&ndash;&gt;-->
+  <!--<div flex layout-margin class="contractor-sublist">-->
+    <!--<div flex layout-margin class="grey-heading">-->
+      <!--<h4 layout-margin >Trending</h4>-->
+      <!--<c3chart layout-margin bindto-id="chart1">-->
+        <!--<chart-column column-id="data 1"-->
+                      <!--column-values="30,200,100,400,150,250"-->
+                      <!--column-color="blue"-->
+                      <!--column-type="spline"/>-->
+        <!--<chart-column column-id="data 2"-->
+                      <!--column-color="orange"-->
+                      <!--column-values="50,20,10,40,15,25"-->
+                      <!--column-type="line"/>-->
+      <!--</c3chart>-->
+    <!--</div>-->
+  <!--</div>-->
+
+
+<!--</div>-->
+
+<div layout-gt-xs="row" class="top-admin">
+  <div flex layout-margin class="contractor-sublist">
+    <div flex layout-margin class="grey-heading">
+      <div layout-margin>
+        <h4>Invoiced</h4>
+        <h6>(Time invoiced of time entered)</h6>
+        <div id="chart1"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

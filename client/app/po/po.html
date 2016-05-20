@@ -1,0 +1,94 @@
+
+
+  <!--<md-content>-->
+    <!--<md-list>-->
+      <!--<md-subheader class="md-no-sticky">3 line item</md-subheader>-->
+      <!--<md-list-item layout="row" class="md-3-line" ng-repeat="po in myPOs">-->
+        <!--<div class="md-list-item-text" layout="column">-->
+          <!--<h3>PO ID: {{ po.poid }}</h3>-->
+          <!--<h2>PO Description: {{ po.podesc }}</h2>-->
+          <!--<h3>{{ po.pohours}}</h3>-->
+          <!--<h3>{{ po.poclient}}</h3>-->
+        <!--</div>-->
+
+      <!--</md-list-item>-->
+      <!--<md-divider ></md-divider>-->
+    <!--</md-list>-->
+  <!--</md-content>-->
+
+
+
+  <md-toolbar class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools">
+      <span>Purchase Order Maintenance</span>
+      <div flex></div>
+      <md-button class="md-icon-button" ng-click="loadStuff()">
+        <md-icon>refresh</md-icon>
+      </md-button>
+    </div>
+
+
+  </md-toolbar>
+
+
+
+
+  <md-table-container>
+    <table md-table md-row-select="true">
+      <thead md-head md-order="query.order">
+      <tr md-row>
+        <th md-column md-order-by="poid">PO Id</th>
+        <th md-column>Desc</th>
+        <th md-column>Hours</th>
+        <th md-column>Project</th>
+        <th md-column>Contractor</th>
+        <th md-column>Client</th>
+        <th md-column>Info</th>
+        <th md-column>Delete</th>
+
+      </tr>
+      </thead>
+      <tbody md-body>
+      <!-- we can let ng-repeat sort the columns for us -->
+      <tr md-row  md-select="p"  ng-repeat="p in po.pos | orderBy: query.order | limitTo: query.limit: (query.page-1) * query.limit">
+        <td md-cell><a href="/podtl?poid={{p._id}}">{{p.poid}}</a></td>
+        <td md-cell>{{p.podesc}}</td>
+        <td md-cell>{{p.hours}}</td>
+        <td md-cell>{{p.project}}</td>
+        <td md-cell>
+          <md-select ng-model="p.contractor" placeholder="contractor" ng-change="po.updatePo(p)">
+            <md-option ng-value="contractor._id" ng-repeat="contractor in po.currentContractors">{{contractor.first_name}} {{contractor.last_name}}</md-option>
+          </md-select>
+        </td>
+        <td md-cell>
+          <md-select ng-model="p.client" placeholder="client" ng-change="po.updatePo(p)">
+            <md-option ng-value="client._id" ng-repeat="client in po.currentClients">{{client.client_name}}</md-option>
+          </md-select>
+        </td>
+
+        <td md-cell ng-click="po.editComment($event, p, $index)" ng-class="{'md-placeholder': !p.info}">
+          {{p.info || 'Status'}}
+        </td>
+        <td md-cell><a ng-click="po.delete(p)"><md-button><i class="material-icons">clear</i></md-button></a></td>
+
+
+      </tr>
+      </tbody>
+    </table>
+  </md-table-container>
+
+  <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{po.pos.length}}"></md-table-pagination>
+
+  <div layout="row">
+    <span flex></span>
+    <!--<md-button class="md-raised md-primary" style="color: white" href="/podtl">New Order</md-button>-->
+
+    <md-button class="btn btn-inverse btn-lg" href="/podtl">
+      <i class="material-icons">playlist_add</i><span>New Order</span>
+    </md-button>
+
+  </div>
+
+
+
+

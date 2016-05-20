@@ -1,0 +1,41 @@
+<div class="navbar navbar-default navbar-static-top" ng-controller="NavbarController">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" ng-click="nav.isCollapsed = !nav.isCollapsed">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand">YTC Consultant Portal</a>
+
+    </div>
+
+    <div collapse="nav.isCollapsed" class="navbar-collapse collapse" id="navbar-main">
+      <ul class="nav navbar-nav">
+        <!--<li ng-repeat="item in nav.menu" ui-sref-active="active">-->
+            <!--<a ui-sref="{{item.state}}">{{item.title}}</a>-->
+        <!--</li>-->
+        <li ng-show="nav.isAdmin()" ui-sref-active="active"><a ui-sref="admindash">Dashboard</a></li>
+        <li ng-show="nav.isAdmin()" ui-sref-active="active"><a ui-sref="admin">Users</a></li>
+        <li ng-show="nav.isAdmin()" ui-sref-active="active"><a ui-sref="po">Orders</a></li>
+        <!--<li ng-show="nav.isAdmin()" ui-sref-active="active"><a ui-sref="client">Clients</a></li>-->
+        <li ng-show="nav.isAdmin()" ui-sref-active="active"><a ui-sref="invoice">Invoices</a></li>
+
+        <li ng-show="nav.isClient()" ui-sref-active="active"><a ui-sref="clientdash">Dashboard</a></li>
+
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li ng-show="nav.isContractor()"  ui-sref-active="active"><a ui-sref="contractordash">Dashboard</a></li>
+        <li ng-show="nav.isContractor()"  ui-sref-active="active"><a ui-sref="timeentry">Time Entry</a></li>
+        <li ng-hide="nav.isLoggedIn()" ui-sref-active="active"><a href="./login">Login</a></li>
+        <!--<li ng-show="nav.isLoggedIn()"><p class="navbar-text">Hello {{ getCurrentUser().first_name }}</p> </li>-->
+        <!--<li ng-show="nav.isLoggedIn()" ui-sref-active="active"><a ui-sref="settings"><span class="glyphicon glyphicon-cog"></span></a></li>-->
+        <li ng-show="nav.isLoggedIn()"><a ui-sref="logout">Logout</a></li>
+
+      </ul>
+    </div>
+  </div>
+  <md-progress-linear md-mode="indeterminate" ng-if="$root.loading"></md-progress-linear>
+</div>

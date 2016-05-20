@@ -1,0 +1,52 @@
+
+
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+
+    <div>Invoice List:</div>
+
+  </div>
+</md-toolbar>
+
+
+
+<md-table-container>
+  <table md-table md-row-select="true">
+    <thead md-head md-order="query.order">
+    <tr md-row>
+      <th md-column md-order-by="name"><span>Invoice ID</span></th>
+      <th md-column>Date</th>
+      <th md-column>Status</th>
+      <th md-column>PO</th>
+      <th md-column>Hours</th>
+      <th md-column>Revenue</th>
+
+    </tr>
+    </thead>
+    <tbody md-body>
+    <!-- we can let ng-repeat sort the columns for us -->
+    <tr md-row md-select="inv"  ng-repeat="inv in invlist.viewInvoices | orderBy: query.order | limitTo: query.limit: (query.page-1) * query.limit">
+      <td md-cell><a href="/invoiceview?invoice={{inv.invoice_id}}">{{inv.name}}</a></td>
+      <td md-cell>{{inv.date}}</td>
+      <td md-cell>{{inv.status}}</td>
+      <td md-cell>{{inv.poid}}</td>
+      <td md-cell>{{inv.total_hours}}</td>
+      <td md-cell>{{inv.revenue | currency:"USD$"}}</td>
+
+    </tr>
+    </tbody>
+  </table>
+</md-table-container>
+
+<md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{invlist.viewInvoices.length}}"></md-table-pagination>
+
+
+<div layout="row">
+  <span flex></span>
+  <!--<md-button class="md-raised md-primary" style="color: white" href="/podtl">New Order</md-button>-->
+
+  <md-button class="btn btn-inverse btn-lg" href="/invoicedtl">
+    <i class="material-icons">playlist_add</i><span>New Invoice</span>
+  </md-button>
+
+</div>

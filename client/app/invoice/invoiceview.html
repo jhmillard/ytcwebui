@@ -1,0 +1,299 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+
+    <div>Invoice View:</div>
+    <span flex></span>
+    <div hide-sm hide-xs layout-margin>{{inview.client.client_name}}</div>
+    <div layout-margin><img class="img-user-avatar" src="{{inview.client.img_url}}" class="md-avatar" alt="image caption"></div>
+
+  </div>
+</md-toolbar>
+
+
+<div layout-gt-xs="row" class="top-admin" ng-show="true">
+
+  <div flex layout-margin class="contractor-sublist">
+    <div flex class="grey-heading">
+      <div layout-gt-xs="row">
+        <div flex>
+          <h4 class="header_info">Invoice ID:</h4>
+          <h4 class="header_info">Purchase Order:</h4>
+          <h4 class="header_info">Project</h4>
+
+          <h4 class="header_info">Client:</h4>
+          <h4></h4>
+        </div>
+        <div flex>
+          <h4 class="header_info">{{inview.currentInvoice.name}}</h4>
+          <h4 class="header_info">{{inview.currentInvoice.po.poid}}</h4>
+          <h4 class="header_info">{{inview.po.project}}</h4>
+
+          <h4 class="header_info">{{inview.client.client_name}}</h4>
+          <h4 class="header_info">{{inview.client.email}}</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div flex layout-margin class="contractor-sublist">
+    <div flex class="grey-heading">
+      <div ng-show='inview.showAdmin' layout-margin>
+
+        <!--<md-icon><i class="material-icons">perm_identity</i></md-icon>-->
+        <label><h4 class="header_info">Current Status</h4></label>
+        <md-select class="header_info" id="status" name="status" ng-model="inview.currentInvoice.status" required>
+          <md-option ng-repeat="stat in inview.status" value="{{stat.type}}">
+            <h1 class="status_info"> {{stat.desc}} </h1>
+          </md-option>
+        </md-select>
+
+      </div>
+
+      <div ng-show='!inview.showAdmin' flex="100" align="center">
+
+        <!--<md-icon><i class="material-icons">perm_identity</i></md-icon>-->
+        <label><h4 class="header_info">Current Status</h4></label>
+        <md-divider></md-divider>
+        <!--<div class="center">-->
+          <!--<h3 style="text-transform: uppercase; color: darkslategrey">{{inview.currentInvoice.status}}</h3>-->
+          <!--&lt;!&ndash;<h2 class="status_info"> {{inview.currentInvoice.status}} </h2>&ndash;&gt;-->
+        <!--</div>-->
+
+      </div>
+
+      <div flex="100" layout="row" layout-align="center center">
+
+
+        <!--ENTERED STEP VISUAL-->
+        <div ng-if="inview.currentInvoice.status == 'entered'" layout="row" layout-align="center center">
+          <div flex layout-margin>
+            <div layout="column" layout-align="center center">
+              <i class="material-icons" style="color:green">fiber_manual_record</i>
+              <h4 style="color:green">Entered</h4>
+            </div>
+          </div>
+          <div flex layout-margin>
+            <div layout="column" layout-align="center center">
+              <i class="material-icons">fiber_manual_record</i>
+              <h4>Sent</h4>
+            </div>
+          </div>
+          <div flex layout-margin>
+            <div layout="column" layout-align="center center">
+              <i class="material-icons">fiber_manual_record</i>
+              <h4>Recieved</h4>
+            </div>
+          </div>
+          <div flex layout-margin>
+            <div layout="column" layout-align="center center">
+              <i class="material-icons">fiber_manual_record</i>
+              <h4>Paid</h4>
+            </div>
+          </div>
+
+        </div>
+
+        <!--SENT STEP VISUAL-->
+        <div ng-if="inview.currentInvoice.status == 'sent'" layout="row" layout-align="center center">
+          <div flex layout-margin>
+            <div layout="column" layout-align="center center">
+              <i class="material-icons" style="color:lightgrey">fiber_manual_record</i>
+              <h4 style="color:lightgrey">Entered</h4>
+            </div>
+          </div>
+          <div flex layout-margin>
+            <div layout="column" layout-align="center center">
+              <i class="material-icons" style="color:green">fiber_manual_record</i>
+              <h4 style="color:green">Sent</h4>
+            </div>
+          </div>
+          <div flex layout-margin>
+            <div layout="column" layout-align="center center">
+              <i class="material-icons">fiber_manual_record</i>
+              <h4>Recieved</h4>
+            </div>
+          </div>
+          <div flex layout-margin>
+            <div layout="column" layout-align="center center">
+              <i class="material-icons">fiber_manual_record</i>
+              <h4>Paid</h4>
+            </div>
+          </div>
+        </div>
+
+        <!--RECIEVED STEP VISUAL-->
+        <div ng-if="inview.currentInvoice.status == 'received'" layout="row" layout-align="center center">
+          <div flex layout-margin>
+            <div layout="column" layout-align="center center">
+              <i class="material-icons" style="color:lightgrey">fiber_manual_record</i>
+              <h4 style="color:lightgrey">Entered</h4>
+            </div>
+          </div>
+          <div flex layout-margin>
+            <div layout="column" layout-align="center center">
+              <i class="material-icons" style="color:lightgrey">fiber_manual_record</i>
+              <h4 style="color:lightgrey">Sent</h4>
+            </div>
+          </div>
+          <div flex layout-margin>
+            <div layout="column" layout-align="center center">
+              <i class="material-icons" style="color:green">fiber_manual_record</i>
+              <h4 style="color:green">Recieved</h4>
+            </div>
+          </div>
+          <div flex layout-margin>
+            <div layout="column" layout-align="center center">
+              <i class="material-icons">fiber_manual_record</i>
+              <h4>Paid</h4>
+            </div>
+          </div>
+        </div>
+
+        <!--PAID STEP VISUAL-->
+        <div ng-if="inview.currentInvoice.status == 'paid'" layout="row" layout-align="center center">
+          <div flex layout-margin>
+            <div layout="column" layout-align="center center">
+              <i class="material-icons" style="color:lightgrey">fiber_manual_record</i>
+              <h4 style="color:lightgrey">Entered</h4>
+            </div>
+          </div>
+          <div flex layout-margin>
+            <div layout="column" layout-align="center center">
+              <i class="material-icons" style="color:lightgrey">fiber_manual_record</i>
+              <h4 style="color:lightgrey">Sent</h4>
+            </div>
+          </div>
+          <div flex layout-margin>
+            <div layout="column" layout-align="center center">
+              <i class="material-icons" style="color:lightgrey">fiber_manual_record</i>
+              <h4 style="color:lightgrey">Recieved</h4>
+            </div>
+          </div>
+          <div flex layout-margin>
+            <div layout="column" layout-align="center center">
+              <i class="material-icons" style="color:green">fiber_manual_record</i>
+              <h4 style="color:green">Paid</h4>
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+
+      <md-progress-linear md-mode="determinate" value={{inview.progress}}></md-progress-linear>
+
+
+
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+
+    <div>Invoice Time Sheets:</div>
+
+  </div>
+</md-toolbar>
+
+
+<div ng-show="inview.showList" layout-gt-xs="row" class="top-admin">
+  <div flex layout-margin class="contractor-sublist">
+    <div flex class="grey-heading" layout-margin>
+
+  <md-table-container>
+    <table md-table md-row-select="true">
+      <thead md-head md-order="query.order">
+      <tr md-row>
+        <th md-column>Date</th>
+        <th md-column hide-sm hide-xs>Contractor</th>
+
+        <th md-column>Hours</th>
+        <th md-column>Category</th>
+        <th md-column ng-show={{inview.showDelete}}>Remove</th>
+
+      </tr>
+      </thead>
+      <tbody md-body>
+      <!-- we can let ng-repeat sort the columns for us -->
+      <tr md-row md-select="t"  ng-repeat="t in inview.currentInvoice.timesheets | orderBy: query.order | limitTo: query.limit: (query.page-1) * query.limit">
+
+        <td md-cell><a href="/timeview/{{t.contractor._id}}/{{t.id}}">{{t.short_date}}</a></td>
+        <td md-cell layout-margin hide-xs hide-sm><img class="img-user-avatar" src="{{t.contractor.img_url}}" class="md-avatar" alt="image caption">
+          {{t.contractor.first_name}} {{t.contractor.last_name}}
+          </td>
+        <td md-cell>{{t.hours}}</td>
+
+        <td md-cell>
+          <md-chips>
+            <md-chip ng-show="t.category=='dev'" style="background-color:orange; color:white">Development</md-chip>
+            <md-chip ng-show="t.category=='admin'" style="background-color:greenyellow; color:grey">Admin</md-chip>
+            <md-chip ng-show="t.category=='test'" style="background-color:lightblue; color:lightslategrey">Testing</md-chip>
+          </md-chips>
+        </td>
+        <td md-cell ng-if="inview.currentInvoice.status=='entered'"><a ng-click="inview.remove(t)"><md-button><i class="material-icons">clear</i></md-button></a></td>
+        <td md-cell ng-if="inview.currentInvoice.status !='entered'"><i class="material-icons" style="color:red">done</i></td>
+      </tr>
+      </tbody>
+    </table>
+  </md-table-container>
+
+  <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{inview.currentInvoice.timesheets.length}}"></md-table-pagination>
+
+
+  </div>
+    </div>
+
+</div>
+
+  <md-toolbar class="md-table-toolbar md-default">
+    <div class="md-toolbar-tools white-text">
+      <span>Trending Timeline</span>
+
+    </div>
+  </md-toolbar>
+  <div layout-gt-xs="row" class="top-admin">
+    <div flex layout-margin class="contractor-sublist">
+      <div flex class="grey-heading" layout-margin>
+        <!--<h4>Trending Timeline</h4>-->
+        <h6>(Hours by category)</h6>
+
+        <!--<div flex id="chart1" layout-margin></div>-->
+        <div id="chart4"></div>
+        <!--<chart-column column-id="data 1"-->
+        <!--column-values="30,200,100,400,150,250"-->
+        <!--column-color="yellow"-->
+        <!--column-type="spline"/>-->
+        <!--<chart-column column-id="data 2"-->
+        <!--column-values="50,20,10,40,15,25"-->
+        <!--column-color="blue"-->
+        <!--column-type="line"/>-->
+
+      </div>
+    </div>
+
+  </div>
+
+
+  <div layout-margin>
+
+    <a class="btn btn-default btn-lg btn-login" ng-click="inview.cancel()">
+      Back
+    </a>
+    <a ng-show="inview.showAdmin" class="btn btn-default btn-lg btn-login" ng-click="inview.update()">
+      Update
+    </a>
+    <a ng-show="inview.show_delete_invoice" class="btn btn-default btn-lg btn-login" ng-click="inview.delete(inview.currentInvoice)">
+      Delete
+    </a>
+
+  </div>
+
+
+
+

@@ -1,0 +1,111 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+
+    <div>Administration Dashboard</div>
+    <span flex></span>
+    <div layout-margin>{{admindash.currentUser.first_name}} {{admindash.currentUser.last_name}}</div>
+    <div><img class="img-user-avatar" src="{{admindash.currentUser.img_url}}" class="md-avatar" alt="image caption"></div>
+
+  </div>
+</md-toolbar>
+
+<div layout-gt-sm="row" class="top-admin">
+
+  <div flex layout-margin class="current-pos">
+
+    <h4 class="white-heading">Current Open PO's</h4>
+    <md-table-container>
+      <table md-table md-row-select="true">
+        <thead md-head md-order="admindash.poquery.order">
+        <tr md-row>
+          <th md-column><span>Purchase Order</span></th>
+          <th md-column>Used</th>
+          <th md-column>Available</th>
+
+        </tr>
+        </thead>
+        <tbody md-body>
+        <!-- we can let ng-repeat sort the columns for us -->
+        <tr class="tr-color" md-row md-select="po"  ng-repeat="po in admindash.viewPos | orderBy: admindash.poquery.order | limitTo: admindash.poquery.limit: (admindash.poquery.page-1) * admindash.poquery.limit">
+
+          <td md-cell><a class="white-link" href="/contractorpo?poid={{po._id}}">{{po.poid}}</a></td>
+          <td md-cell>{{po.total_hours}}</td>
+          <td md-cell>{{po.avail_hours}}</td>
+
+
+        </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+
+    <md-table-pagination md-limit="admindash.poquery.limit" md-page="admindash.poquery.page" md-total="{{admindash.viewPos.length}}"></md-table-pagination>
+    <div layout="row">
+      <span flex></span>
+      <!--<md-button class="md-raised md-primary" style="color: white" href="/podtl">New Order</md-button>-->
+
+      <md-button class="btn btn-inverse btn-lg white-heading" href="/podtl">
+        <i class="material-icons">playlist_add</i><span>New Purchase Order</span>
+      </md-button>
+
+    </div>
+
+  </div>
+  <div flex layout-margin class="current-invoices">
+    <h4 class="white-heading">Current Invoices</h4>
+    <md-table-container>
+      <table md-table md-row-select="true">
+        <thead md-head md-order="admindash.invoicequery.order">
+        <tr md-row>
+          <th md-column><span>Invoice ID</span></th>
+          <th md-column>Date</th>
+          <th md-column>Hours</th>
+
+        </tr>
+        </thead>
+        <tbody md-body>
+        <!-- we can let ng-repeat sort the columns for us -->
+        <tr md-row md-select="inv"  ng-repeat="inv in admindash.viewInvoices | orderBy: admindash.invoicequery.order | limitTo: admindash.invoicequery.limit: (admindash.invoicequery.page-1) * admindash.invoicequery.limit">
+          <td md-cell><a class="white-link" href="/invoiceview?invoice={{inv._id}}">{{inv.name}}</a></td>
+          <td md-cell>{{inv.date}}</td>
+          <td md-cell>{{inv.hours}}</td>
+
+
+        </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+
+    <md-table-pagination md-limit="admindash.invoicequery.limit" md-page="admindash.invoicequery.page" md-total="{{admindash.viewInvoices.length}}"></md-table-pagination>
+
+    <div layout="row">
+      <span flex></span>
+      <!--<md-button class="md-raised md-primary" style="color: white" href="/podtl">New Order</md-button>-->
+
+      <md-button class="btn btn-inverse btn-lg white-heading" href="/invoicedtl">
+        <i class="material-icons">playlist_add</i><span>New Invoice</span>
+      </md-button>
+
+    </div>
+  </div>
+
+</div>
+
+
+<div layout-gt-sm="row" class="top-admin">
+  <div flex>
+    <div flex class="trending-admin" layout-margin>
+      <h4 layout-margin class="white-heading">Trending</h4>
+      <c3chart layout-margin bindto-id="chart1">
+        <chart-column column-id="data 1"
+                      column-values="30,200,100,400,150,250"
+                      column-color="blue"
+                      column-type="spline"/>
+        <chart-column column-id="data 2"
+                      column-color="green"
+                      column-values="50,20,10,40,15,25"
+                      column-type="line"/>
+      </c3chart>
+    </div>
+  </div>
+</div>
+

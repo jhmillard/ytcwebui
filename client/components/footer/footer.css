@@ -1,0 +1,20 @@
+footer{
+
+  background-color: lightgrey;
+  color: darkgrey;
+
+}
+
+.footer_info h5{
+  color: darkslategray;
+}
+.footer_info h4{
+  color: darkslategrey;
+}
+.footer_info h6{
+  color: darkgreen;
+}
+.footer_info b1{
+  color: red;
+}
+

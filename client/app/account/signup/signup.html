@@ -1,0 +1,157 @@
+
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <span>Create New User</span>
+  </div>
+</md-toolbar>
+
+<md-content layout-padding="">
+  <div>
+    <form class="form" name="userForm" ng-submit="vm.register(userForm,previousPage)">
+
+      <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-xs="">
+          <label>First Name (Required)</label>
+          <input ng-model="vm.user.first_name" required="">
+          <div ng-messages="vm.user.first_name.$error" ng-hide="showHints">
+            <div ng-message-exp="['required']">
+              You must have a first name
+            </div>
+          </div>
+        </md-input-container>
+      </div>
+
+      <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-xs="">
+          <label>Last Name (Required)</label>
+          <input ng-model="vm.user.last_name" required="">
+          <div ng-messages="vm.user.last_name.$error" ng-hide="showHints">
+            <div ng-message-exp="['required']">
+              You must have a last name
+            </div>
+          </div>
+        </md-input-container>
+      </div>
+
+
+
+      <div layout-gt-sm="row">
+
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>Email (Required)</label>
+          <input name="email" ng-model="vm.user.email" required="" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/">
+
+          <!--<div class="hint" ng-show="showHints">How can we reach you?</div>-->
+
+          <div ng-messages="vm.user.email.$error">
+            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']" ng-show="vm.user.email.$error">
+              Your email must be between 10 and 100 characters long and look like an e-mail address.
+            </div>
+          </div>
+        </md-input-container>
+
+        <div flex="5" hide-xs="" hide-sm="">
+          <!-- Spacer //-->
+        </div>
+
+
+        <!--ng-pattern="/^([0-9]{3}) [0-9]{3}-[0-9]{4}$/"  The regex for phone.. not working-->
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>Phone Number</label>
+          <input name="phone" id="phone" ng-model="vm.user.phone" >
+
+          <!--<div class="hint" ng-if="showHints">(###) ###-####</div>-->
+          <div ng-messages="vm.user.phone.$error">
+            <!--<div ng-show="userForm.phone.$error.pattern">(###) ###-#### - Please enter a valid phone number.</div>-->
+            <div ng-show="userForm.phone.$error.required">Phone Required</div>
+          </div>
+        </md-input-container>
+      </div>
+
+
+
+
+      <div layout-gt-sm="row">
+
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>Password</label>
+          <input type="password" id="password" name="password" ng-model="vm.user.password" required="" minlength="3" maxlength="50">
+
+
+          <div ng-messages="userForm.password.$error">
+            <div ng-message-exp="['required', 'minlength', 'maxlength']">
+              Password must be greater than 3 characters
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>Confirm Password</label>
+          <input type="password" name="confirmPassword" ng-model="vm.user.confirmPassword"
+                 match="userForm.password" required="" minlength="3" maxlength="50">
+
+          <div ng-messages="userForm.confirmPassword.$error">
+            <div ng-message-exp="['required', 'minlength', 'maxlength', 'match']">
+              Passwords must match
+            </div>
+          </div>
+        </md-input-container>
+
+      </div>
+
+
+
+      <div layout="row">
+        <md-input-container>
+          <label>Role</label>
+          <md-select name="role" ng-change="vm.onrolechange()" ng-model="vm.user.role" required>
+            <md-option ng-repeat="type in types" value="{{type.type}}">
+              {{type.desc}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+
+
+      <div ng-show=vm.displayClientInfo layout-gt-sm="row">
+
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>Client Name</label>
+          <input name="client_name" id="client_name" ng-model="vm.user.client_name" >
+
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>Client Address</label>
+          <input name="client_addr1" id="client_addr1" ng-model="vm.user.client_addr1" >
+
+        </md-input-container>
+
+
+      </div>
+
+
+
+
+
+      <div>
+        <button class="btn btn-inverse btn-lg btn-register" type="submit">
+          Sign up
+        </button>
+        <a class="btn btn-default btn-lg btn-login" ui-sref="login">
+          Login
+        </a>
+      </div>
+
+        <div flex="5" hide-xs="" hide-sm="">
+          <!-- Spacer //-->
+        </div>
+    </form>
+  </div>
+</md-content>
+
+
+
+
+
+

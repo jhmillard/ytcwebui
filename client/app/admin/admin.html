@@ -1,0 +1,70 @@
+
+<!--<div class="container">-->
+  <!--<p>The delete user and user index api routes are restricted to users with the 'admin' role.</p>-->
+  <!--<ul class="list-group user-list">-->
+    <!--<li class="list-group-item" ng-repeat="user in admin.users">-->
+	    <!--<div class="user-info">-->
+	        <!--<strong>{{user.name}}</strong><br>-->
+	        <!--<span class="text-muted">{{user.email}}</span>-->
+	    <!--</div>-->
+        <!--<a ng-click="admin.delete(user)" class="trash"><span class="fa fa-trash fa-2x"></span></a>-->
+    <!--</li>-->
+  <!--</ul>-->
+<!--</div>-->
+
+
+<!--<md-content>-->
+  <!--<md-button class="md-raised md-primary" href="/signup">Add New User</md-button>-->
+<!--</md-content>-->
+
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <span>User Maintenance</span>
+  </div>
+</md-toolbar>
+
+<md-table-container>
+  <table md-table md-row-select>
+    <thead md-head md-order="query.order">
+    <tr md-row>
+      <th md-column>Avatar</th>
+      <th md-column md-order-by="last_name">Last Name</th>
+      <th md-column md-order-by="first_name">First Name</th>
+      <th md-column>Client</th>
+      <th md-column>Email</th>
+      <th md-column>Phone</th>
+      <th md-column md-order-by="role">Role</th>
+      <th md-column>Delete</th>
+    </tr>
+    </thead>
+    <tbody md-body>
+    <!-- we can let ng-repeat sort the columns for us -->
+    <tr md-row ng-repeat="user in admin.users | orderBy: query.order | limitTo: query.limit: (query.page-1) * query.limit">
+      <td md-cell layout-margin> <img class="img-user-avatar" src="{{user.img_url}}" class="md-avatar" alt="image caption"></td>
+      <td md-cell>{{user.last_name}}</td>
+      <td md-cell>{{user.first_name}}</td>
+      <td md-cell>{{user.client_name}}</td>
+      <td md-cell><a href="/userimg?userid={{user._id}}">{{user.email}}</a></td>
+      <td md-cell>{{user.phone}}</td>
+      <td md-cell>{{user.role}}</td>
+      <td md-cell><a ng-click="admin.delete(user)" class="trash"><span class="fa fa-trash fa-2x"></span></a></td>
+    </tr>
+    </tbody>
+  </table>
+
+
+</md-table-container>
+
+<md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{admin.users.length}}"></md-table-pagination>
+
+<div layout="row">
+  <span flex></span>
+  <!--<md-button class="md-raised md-primary" style="color: white" href="/podtl">New Order</md-button>-->
+
+  <md-button class="btn btn-inverse btn-lg" href="/signup">
+    <i class="material-icons">playlist_add</i><span>New User</span>
+  </md-button>
+
+</div>
+
+

@@ -1,0 +1,142 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <div>Time Entry Details</div>
+    <span flex></span>
+    <div>{{timeview.currentuser.first_name}} {{timeview.currentuser.last_name}}</div>
+    <div layout-margin><img class="img-user-avatar" src="{{timeview.currentuser.img_url}}" class="md-avatar" alt="image caption"></div>
+  </div>
+</md-toolbar>
+
+
+
+<div layout-gt-xs="row" class="top-admin">
+
+  <div flex layout-margin class="contractor-sublist">
+    <div flex class="grey-heading">
+      <div class="layout-row">
+        <h4>Time Sheet Information</h4>
+        <span flex></span>
+        <div layout-margin><img class="img-user-avatar" src="{{timeview.timesheet.client_image}}" class="md-avatar" alt="image caption"></div>
+      </div>
+      <md-divider></md-divider>
+      <div class="layout-row">
+        <div><h5>Date:</h5></div>
+        <span flex></span>
+        <div><h5>{{timeview.timesheet.short_date}}</h5></div>
+      </div>
+      <div class="layout-row">
+        <div><h5>Hours:</h5></div>
+        <span flex></span>
+        <div><h5>{{timeview.timesheet.hours}}</h5></div>
+      </div>
+      <div class="layout-row">
+        <div><h5>Purchase Order:</h5></div>
+        <span flex></span>
+        <div><h5>{{timeview.timesheet.po.name}}</h5></div>
+      </div>
+      <div class="layout-row">
+        <div><h5>Client:</h5></div>
+        <span flex></span>
+        <div><h5>{{timeview.timesheet.client_name}}</h5></div>
+      </div>
+      <md-divider></md-divider>
+      <div class="layout-row">
+        <div><h5>Description:</h5></div>
+      </div>
+
+      <div style="color: darkgreen"><h5><pre>{{timeview.timesheet.desc}}</pre></h5></p></div>
+    </div>
+  </div>
+  <div flex layout-margin class="contractor-sublist">
+    <div flex class="grey-heading">
+      <h4>Status</h4>
+      <md-divider></md-divider>
+      <div class="layout-row">
+        <div style="margin:auto; text-transform: uppercase;"><h1 style="color:green">{{timeview.timesheet.status}}</h1></div>
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--<md-toolbar class="md-table-toolbar md-default">-->
+  <!--<div class="md-toolbar-tools">-->
+    <!--<div>Skills Used:</div>-->
+  <!--</div>-->
+<!--</md-toolbar>-->
+<!--<div layout-gt-xs="row" class="top-admin">-->
+
+  <!--<div flex layout-margin class="contractor-sublist">-->
+    <!--<div flex class="grey-heading">-->
+
+        <!--<h5>Code Skills</h5>-->
+
+        <!--<md-switch ng-show="timeview.timesheet.skillset.code.cplus" ng-model="timeview.timesheet.skillset.code.cplus" class="md-warn" aria-label="C++" disabled>-->
+          <!--C++-->
+        <!--</md-switch>-->
+        <!--<md-switch ng-show="timeview.timesheet.skillset.code.javascript" ng-model="timeview.timesheet.skillset.code.javascript" class="md-warn" aria-label="javascript" disabled>-->
+          <!--JavaScript-->
+        <!--</md-switch>-->
+        <!--<md-switch  ng-show="timeview.timesheet.skillset.code.csharp" ng-model="timeview.timesheet.skillset.code.csharp" class="md-warn" aria-label="C#" disabled>-->
+          <!--C#-->
+        <!--</md-switch>-->
+        <!--<md-switch ng-show="timeview.timesheet.skillset.code.plsql" ng-model="timeview.timesheet.skillset.code.plsql" class="md-warn"  aria-label="plsql" disabled>-->
+          <!--PL/SQL-->
+        <!--</md-switch>-->
+        <!--<md-switch ng-show="timeview.timesheet.skillset.code.java" ng-model="timeview.timesheet.skillset.code.java" class="md-warn" aria-label="Java" disabled>-->
+          <!--Java-->
+        <!--</md-switch>-->
+
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div flex layout-margin class="contractor-sublist">-->
+    <!--<div flex class="grey-heading">-->
+
+        <!--<h5>Database Skills</h5>-->
+
+        <!--<md-switch ng-model="timeview.timesheet.skillset.db.oracle" aria-label="oracledb" disabled>-->
+          <!--Oracle DB-->
+        <!--</md-switch>-->
+        <!--<md-switch ng-model="timeview.timesheet.skillset.db.sqlserver" aria-label="sqlserverdb" disabled>-->
+          <!--SQL Server-->
+        <!--</md-switch>-->
+        <!--<md-switch ng-model="timeview.timesheet.skillset.db.mysql" aria-label="sqlserverdb" disabled>-->
+          <!--MySQL-->
+        <!--</md-switch>-->
+        <!--<md-switch ng-model="timeview.timesheet.skillset.db.mongo" aria-label="mongodb" disabled>-->
+          <!--MongoDB-->
+        <!--</md-switch>-->
+
+    <!--</div>-->
+
+  <!--</div>-->
+  <!--<div flex layout-margin class="contractor-sublist">-->
+    <!--<div flex class="grey-heading">-->
+
+
+      <!--<h5>Leadership Skills</h5>-->
+
+      <!--<md-switch ng-model="timeview.timesheet.skillset.leadership.management" aria-label="manage" disabled>-->
+        <!--Management-->
+      <!--</md-switch>-->
+      <!--<md-switch ng-model="timeview.timesheet.skillset.leadership.training" aria-label="lead" disabled>-->
+        <!--Training-->
+      <!--</md-switch>-->
+
+    <!--</div>-->
+
+  <!--</div>-->
+<!--</div>-->
+
+<div layout-margin>
+  <a class="btn btn-default btn-lg btn-login" ng-click="timeview.back()">
+    Back
+  </a>
+</div>
+

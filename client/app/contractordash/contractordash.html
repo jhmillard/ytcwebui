@@ -1,0 +1,384 @@
+<!--<div>This is the contractordash view.</div>-->
+
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools white-text">
+    <span>Contractor Dashboard</span>
+    <span flex></span>
+    <div layout-margin>{{contractordash.currentUser.first_name}} {{contractordash.currentUser.last_name}}</div>
+      <div><img class="img-user-avatar" src="{{contractordash.currentUser.img_url}}" class="md-avatar" alt="image caption"></div>
+
+    <!--<div>{{contractordash.currentuser.first_name}} {{contratordash.currentuser.last_name}}</div>-->
+    <!--<md-button ng-if=!time.showform ng-click="time.showinputform()">Add Time</md-button>-->
+    <!--<md-button class="md-primary">Accent Hue 1</md-button>-->
+    <!--<div ng-if="!time.showform"><a ng-click="time.showinputform()"><i class="material-icons">playlist_add</i></a></div>-->
+  </div>
+</md-toolbar>
+
+<!--<div layout-gt-xs="row">-->
+  <!--<div flex>-->
+    <!--<md-card class="card-header">-->
+      <!--<div layout-gt-xs="row">-->
+
+        <!--<div layout-margin>-->
+          <!--<md-card_title-text>-->
+            <!--<div>-->
+            <!--<h2>{{contractordash.currentUser.first_name}} {{contractordash.currentUser.last_name}}</h2>-->
+            <!--<h5>{{contractordash.currentUser.email}}</h5>-->
+            <!--<h5>{{contractordash.currentUser.phone}}</h5>-->
+
+            <!--&lt;!&ndash;<md-button class="btn btn-inverse btn-lg color-add" href="/timeentrydtl/{{contractordash.currentUser._id}}/0">&ndash;&gt;-->
+              <!--&lt;!&ndash;<i class="material-icons">playlist_add</i>Add Time&ndash;&gt;-->
+              <!--&lt;!&ndash;</md-button>&ndash;&gt;-->
+
+              <!--<a class="btn btn-default btn-lg btn-login"  href="/timeentrydtl/{{contractordash.currentUser._id}}">-->
+                <!--Add Time-->
+              <!--</a>-->
+
+
+              <!--</div>-->
+          <!--</md-card_title-text>-->
+        <!--</div>-->
+
+       <!--<span flex></span>-->
+        <!--<div layout-margin>-->
+          <!--<md-card-title>-->
+            <!--<md-card-title-media>-->
+              <!--<div class="md-avatar">-->
+                <!--<img class="img-avatar" src="{{contractordash.currentUser.img_url}}" class="md-avatar" alt="image caption">-->
+              <!--</div>-->
+            <!--</md-card-title-media>-->
+          <!--</md-card-title>-->
+        <!--</div>-->
+      <!--</div>-->
+
+
+
+      <!--&lt;!&ndash;<md-card-actions layout="row" layout-align="end center">&ndash;&gt;-->
+      <!--&lt;!&ndash;<md-button>Action 1</md-button>&ndash;&gt;-->
+      <!--&lt;!&ndash;<md-button>Action 2</md-button>&ndash;&gt;-->
+      <!--&lt;!&ndash;</md-card-actions>&ndash;&gt;-->
+    <!--</md-card>-->
+  <!--</div>-->
+<!--</div>-->
+
+<div layout-gt-xs="row" class="top-admin" ng-show="true">
+
+  <div flex layout-margin class="contractor-sublist">
+    <div flex class="grey-heading">
+      <h4 style="color:red">NOTIFICATION:</h4>
+      <h7>Invoice I321678 has been moved to Invoiced Status!</h7>
+    </div>
+  </div>
+</div>
+<div layout-gt-xs="row" class="top-admin">
+
+  <div flex layout-margin class="contractor-sublist">
+    <div flex class="grey-heading">
+      <h4>Current Open Timesheets</h4>
+      <h6>(timesheets that aren't currenty invoiced)</h6>
+      <div>
+        <md-table-container>
+          <table md-table md-row-select="true">
+            <thead md-head md-order="contractordash.timesheets.query.order">
+            <tr md-row>
+              <th md-column>Date</th>
+              <th md-column>Hours</th>
+              <th md-column>Description</th>
+              <th md-column>Category</th>
+              <!--<th md-column>Delete</th>-->
+
+            </tr>
+            </thead>
+            <tbody md-body>
+            <!-- we can let ng-repeat sort the columns for us -->
+            <tr md-row ng-repeat="t in contractordash.enteredTimesheets | orderBy: contractordash.timesheetsquery.order | limitTo: contractordash.timesheetsquery.limit: (contractordash.timesheetsquery.page-1) * contractordash.timesheetsquery.limit">
+              <td md-cell><a  href="/timeview/{{contractordash.currentUser._id}}/{{t._id}}">{{t.short_date}}</a></td>
+              <td md-cell>{{t.hours}}</td>
+              <td md-cell>{{t.desc}}</td>
+              <td md-cell>
+                <md-chips>
+                  <md-chip ng-show="t.category=='dev'" style="background-color:orange; color:white">Development</md-chip>
+                  <md-chip ng-show="t.category=='admin'" style="background-color:greenyellow; color:grey">Admin</md-chip>
+                  <md-chip ng-show="t.category=='test'" style="background-color:blue; color:white">Testing</md-chip>
+                </md-chips>
+              </td>
+
+
+              <!--<td md-cell><a ng-click="time.removeitem($index)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
+
+              <!--<td md-cell><a ng-click="time.delete(t)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
+            </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+
+        <md-table-pagination md-limit="contractordash.timesheetsquery.limit" md-page="contractordash.timesheetsquery.page" md-total="{{contractordash.enteredTimesheets.length}}"></md-table-pagination>
+
+        <div layout="row" layout-margin>
+
+          <!--<md-button class="md-raised md-primary" style="color: white" href="/podtl">New Order</md-button>-->
+
+          <md-button class="btn btn-inverse btn-lg red-heading" href="/timeentrydtl/{{contractordash.currentUser._id}}">
+            <i class="material-icons">playlist_add</i><span>Add Timesheet</span>
+          </md-button>
+
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+</div>
+
+<div layout-gt-xs="row" class="top-admin">
+  <div flex layout-margin class="contractor-sublist">
+    <div flex class="grey-heading" layout-margin>
+      <h4>Trending Timeline</h4>
+      <h6>(Hours by category)</h6>
+
+      <!--<div flex id="chart1" layout-margin></div>-->
+      <div id="chart1"></div>
+      <!--<chart-column column-id="data 1"-->
+      <!--column-values="30,200,100,400,150,250"-->
+      <!--column-color="yellow"-->
+      <!--column-type="spline"/>-->
+      <!--<chart-column column-id="data 2"-->
+      <!--column-values="50,20,10,40,15,25"-->
+      <!--column-color="blue"-->
+      <!--column-type="line"/>-->
+
+    </div>
+  </div>
+
+</div>
+
+<div layout-gt-xs="row" class="top-admin">
+
+
+
+
+  <div flex layout-margin class="contractor-sublist">
+    <div flex class="grey-heading">
+
+      <div>
+        <span><h4>Current PO's</h4></span>
+        <span flex></span>
+        <div>
+          <md-input-container>
+            <label>Clients</label>
+            <md-select name="clientid" ng-change="contractordash.setPoList()" ng-model="contractordash.client._id">
+
+              <md-option ng-repeat="client in contractordash.contractorClients" ng-value=client._id>{{client.client_name}}</md-option>
+
+            </md-select>
+          </md-input-container>
+        </div>
+      </div>
+
+
+      <md-table-container ng-show="contractordash.all_purchase_orders">
+        <table md-table md-row-select="true">
+          <thead md-head md-order="query.order">
+          <tr md-row>
+            <th md-column>Client</th>
+            <th md-column md-order-by="po.name">PO</th>
+            <th md-column md-order-by="po.project">Project ID</th>
+            <th md-column md-order-by="po.hours">Hours</th>
+            <th md-column md-order-by="po.hours_used">Used</th>
+            <!--<th md-column>Delete</th>-->
+
+          </tr>
+          </thead>
+          <tbody md-body>
+          <!-- we can let ng-repeat sort the columns for us -->
+          <tr md-row ng-repeat="t in contractordash.contractorPos  | orderBy: query.order | limitTo: query.limit: (query.page-1) * query.limit">
+            <td md-cell layout-margin><img class="img-user-avatar" src="{{t.clientImage}}" class="md-avatar" alt="image caption"></td>
+            <td md-cell><a href="/contractorpo?poid={{t._id}}">{{t.poid}}</a></td>
+            <td md-cell>{{t.project}}</td>
+            <td md-cell>{{t.hours}}</td>
+            <td md-cell>{{t.hours_used}}</td>
+
+
+            <!--<td md-cell><a ng-click="time.removeitem($index)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
+
+            <!--<td md-cell><a ng-click="time.delete(t)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
+          </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+
+      <md-table-container ng-show="contractordash.filtered_purchase_orders">
+        <table md-table md-row-select="true">
+          <thead md-head md-order="query.order">
+          <tr md-row>
+            <th md-column>Client</th>
+            <th md-column md-order-by="po.name">PO</th>
+            <th md-column md-order-by="po.project">Project ID</th>
+            <th md-column md-order-by="po.hours">Hours</th>
+            <th md-column md-order-by="po.hours_used">Used</th>
+            <!--<th md-column>Delete</th>-->
+
+          </tr>
+          </thead>
+          <tbody md-body>
+          <!-- we can let ng-repeat sort the columns for us -->
+          <tr md-row ng-repeat="t in contractordash.filteredPos  | orderBy: query.order | limitTo: query.limit: (query.page-1) * query.limit">
+            <td md-cell layout-margin><img class="img-user-avatar" src="{{t.clientImage}}" class="md-avatar" alt="image caption"></td>
+            <td md-cell><a  href="/contractorpo?poid={{t._id}}">{{t.poid}}</a></td>
+            <td md-cell>{{t.project}}</td>
+            <td md-cell>{{t.hours}}</td>
+            <td md-cell>{{t.hours_used}}</td>
+
+
+            <!--<td md-cell><a ng-click="time.removeitem($index)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
+
+            <!--<td md-cell><a ng-click="time.delete(t)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
+          </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+      <md-table-pagination ng-show="contractordash.all_purchase_orders" md-limit="query.limit" md-page="query.page" md-total="{{contractordash.contractorPos.length}}"></md-table-pagination>
+      <md-table-pagination ng-show="contractordash.filtered_purchase_orders" md-limit="query.limit" md-page="query.page" md-total="{{contractordash.filteredPos.length}}"></md-table-pagination>
+    </div>
+
+  </div>
+
+
+  <div flex layout-margin class="contractor-sublist">
+    <div flex class="grey-heading">
+      <h4>Current Invoiced Hours</h4>
+      <div>
+        <md-table-container>
+          <table md-table md-row-select="true">
+            <thead md-head md-order="query.order">
+            <tr md-row>
+              <th md-column>Invoice ID</th>
+              <th md-column>Hours</th>
+              <th md-column>Cost</th>
+              <th md-column>Status</th>
+              <!--<th md-column>Delete</th>-->
+
+            </tr>
+            </thead>
+            <tbody md-body>
+            <!-- we can let ng-repeat sort the columns for us -->
+            <tr md-row ng-repeat="i in contractordash.contractorInvoices | orderBy: query.order | limitTo: query.limit: (query.page-1) * query.limit">
+              <td md-cell><a href="/invoiceview?invoice={{i._id}}">{{i.name}}</a></td>
+              <td md-cell>{{i.total_hours}}</td>
+              <td md-cell>{{i.total_contractor_cost | currency:"$"}}</td>
+              <!--<td md-cell>{{i.status}}</td>-->
+              <td md-cell>
+                <md-chips>
+                  <md-chip ng-show="i.status=='entered'" style="background-color:yellow; color:darkslategrey">Entered</md-chip>
+                  <md-chip ng-show="i.status=='invoiced'" style="background-color:red; color:white">Invoiced</md-chip>
+                  <md-chip ng-show="i.status=='sent'" style="background-color:red; color:white">Sent</md-chip>
+                  <md-chip ng-show="i.status=='received'" style="background-color:green; color:white">Complete</md-chip>
+                  <md-chip ng-show="i.status=='paid'" style="background-color:green; color:white">Complete</md-chip>
+                </md-chips>
+              </td>
+
+
+              <!--<td md-cell><a ng-click="time.removeitem($index)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
+
+              <!--<td md-cell><a ng-click="time.delete(t)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
+            </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+
+        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{contractordash.contractorInvoices.length}}"></md-table-pagination>
+
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div layout="row" layout-xs="column" layout-margin>
+
+
+
+
+<!--<div flex>-->
+<!--<h4>Code Usage</h4>-->
+<!--<c3chart bindto-id="stacked-bar-plot1-chart">-->
+<!--<chart-column column-id="data 1"-->
+<!--column-name="Data 1"-->
+<!--column-color="orange"-->
+<!--column-values="30,200,100,400,150,250"-->
+<!--column-type="bar"/>-->
+<!--<chart-group group-values="data"/>-->
+<!--</c3chart>-->
+<!--</div>-->
+</div>
+
+
+
+<!--<div layout="row" layout-xs="column"  class="usage_background">-->
+
+  <!--<div flex layout-margin>-->
+    <!--<h4 class="chart-title-white">PO Usage</h4>-->
+    <!--<c3chart bindto-id="donut-plot1-chart2">-->
+      <!--<chart-column column-id="Data 1"-->
+                    <!--column-values="70"-->
+                    <!--column-type="donut"/>-->
+      <!--<chart-column column-id="Data 2"-->
+                    <!--column-values="35"-->
+                    <!--column-type="donut"/>-->
+      <!--<chart-column column-id="Data 3"-->
+                    <!--column-values="60"-->
+                    <!--column-type="donut"/>-->
+      <!--<chart-donut title="Donut" width="60"/>-->
+    <!--</c3chart>-->
+  <!--</div>-->
+  <!--<div flex layout-margin>-->
+    <!--<h4>Skill Usage</h4>-->
+    <!--<c3chart bindto-id="donut-plot1-chart3">-->
+      <!--<chart-column column-id="Data 1"-->
+                    <!--column-values="70"-->
+                    <!--column-type="donut"/>-->
+      <!--<chart-column column-id="Data 2"-->
+                    <!--column-values="35"-->
+                    <!--column-type="donut"/>-->
+      <!--<chart-column column-id="Data 3"-->
+                    <!--column-values="60"-->
+                    <!--column-type="donut"/>-->
+      <!--<chart-donut title="Donut" width="60"/>-->
+    <!--</c3chart>-->
+  <!--</div>-->
+  <!--<div flex layout-margin>-->
+    <!--<h4>DB Usage</h4>-->
+    <!--<c3chart bindto-id="donut-plot1-chart4">-->
+      <!--<chart-column column-id="Data 1"-->
+                    <!--column-values="70"-->
+                    <!--column-type="donut"/>-->
+      <!--<chart-column column-id="Data 2"-->
+                    <!--column-values="35"-->
+                    <!--column-type="donut"/>-->
+      <!--<chart-column column-id="Data 3"-->
+                    <!--column-values="60"-->
+                    <!--column-type="donut"/>-->
+      <!--<chart-donut title="Donut" width="60"/>-->
+    <!--</c3chart>-->
+  <!--</div>-->
+<!--</div>-->

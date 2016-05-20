@@ -1,0 +1,151 @@
+
+<!--List vie of the time entries-->
+
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools white-text">
+    <span>Time Entries</span>
+    <span flex></span>
+    <div>{{time.currentuser.first_name}} {{time.currentuser.last_name}}</div>
+    <!--<md-button ng-if=!time.showform ng-click="time.showinputform()">Add Time</md-button>-->
+    <!--<md-button class="md-primary">Accent Hue 1</md-button>-->
+    <!--<div ng-if="!time.showform"><a ng-click="time.showinputform()"><i class="material-icons">playlist_add</i></a></div>-->
+  </div>
+</md-toolbar>
+
+<md-table-container>
+  <table md-table md-row-select="true">
+    <thead md-head md-order="query.order">
+    <tr md-row>
+      <th md-column md-order-by="short_date">Date</th>
+      <th md-column md-order-by="po.name">PO</th>
+      <th md-column md-order-by="hours">Hours</th>
+      <th md-column md-order-by="category">Category</th>
+      <th md-column md-order-by="status">Status</th>
+      <th md-column>Desc</th>
+      <th md-column>Technical skills</th>
+      <!--<th md-column>Delete</th>-->
+
+    </tr>
+    </thead>
+    <tbody md-body>
+    <!-- we can let ng-repeat sort the columns for us -->
+    <tr md-row ng-repeat="t in time.currentuser.timesheets| orderBy: query.order | limitTo: query.limit: (query.page-1) * query.limit">
+      <td ng-if="t.status == 'entered'" md-cell><a href="/timeentrydtl/{{time.currentuser._id}}/{{t._id}}">{{t.short_date}}</a></td>
+      <td ng-if="t.status != 'entered'" md-cell><a href="/timeview/{{time.currentuser._id}}/{{t._id}}">{{t.short_date}}</a></td>
+      <td md-cell><a href="/contractorpo?poid={{t.po.id}}">{{t.po.name}}</a></td>
+      <td md-cell>{{t.hours}}</td>
+      <td md-cell>
+          <md-chips>
+            <md-chip ng-show="t.category=='dev'" style="background-color:orange; color:white">Development</md-chip>
+            <md-chip ng-show="t.category=='admin'" style="background-color:greenyellow; color:grey">Admin</md-chip>
+            <md-chip ng-show="t.category=='test'" style="background-color:red; color:white">Testing</md-chip>
+          </md-chips>
+      </td>
+      <td md-cell>{{t.status}}</td>
+      <td md-cell>{{t.desc}}</td>
+      <td md-cell>
+        <md-chips>
+          <md-chip ng-show="t.skillset.code.cplus">C++</md-chip>
+          <md-chip ng-show="t.skillset.code.javascript">JavaScript</md-chip>
+          <md-chip ng-show="t.skillset.code.csharp">C#</md-chip>
+          <md-chip ng-show="t.skillset.code.java">Java</md-chip>
+          <md-chip ng-show="t.skillset.code.plsql">PL/SQL</md-chip>
+        </md-chips>
+      </td>
+
+      <!--<td md-cell><a ng-click="time.removeitem($index)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
+
+      <!--<td md-cell><a ng-click="time.delete(t)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
+    </tr>
+    </tbody>
+  </table>
+</md-table-container>
+
+<md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{time.currentuser.timesheets.length}}"></md-table-pagination>
+
+<div layout="row">
+  <span flex></span>
+  <!--<md-button class="md-raised md-primary" style="color: white" href="/podtl">New Order</md-button>-->
+  <div ng-if="!time.showform">
+
+
+    <md-button class="btn btn-inverse btn-lg" href="/timeentrydtl/{{time.currentuser._id}}/0">
+      <i class="material-icons">playlist_add</i><span>Add Time</span>
+    </md-button>
+    </div>
+    <!--<md-button class="md-raised md-primary" href="/timeentrydtl/{{time.currentuser._id}}/0"  aria-label="Add New Time Entry"><i class="material-icons">playlist_add</i><span>Add Time</span></button></div>-->
+
+</div>
+
+
+
+<md-divider></md-divider>
+
+  <!--<md-toolbar class="md-table-toolbar md-default">-->
+
+
+  <!--<md-toolbar class="md-table-toolbar md-default">-->
+    <!--<div class="md-toolbar-tools white-text">-->
+      <!--<span>Time Breakdown</span>-->
+      <!--<span flex></span>-->
+      <!--<div>{{time.currentuser.first_name}} {{time.currentuser.last_name}}</div>-->
+      <!--&lt;!&ndash;<md-button ng-if=!time.showform ng-click="time.showinputform()">Add Time</md-button>&ndash;&gt;-->
+      <!--&lt;!&ndash;<md-button class="md-primary">Accent Hue 1</md-button>&ndash;&gt;-->
+      <!--&lt;!&ndash;<div ng-if="!time.showform"><a ng-click="time.showinputform()"><i class="material-icons">playlist_add</i></a></div>&ndash;&gt;-->
+    <!--</div>-->
+  <!--</md-toolbar>-->
+
+
+
+
+
+
+<!--<div layout="row" layout-xs="column">-->
+  <!--<div flex>-->
+    <!--<h4>Category Usage</h4>-->
+    <!--<div id="chart2"></div>-->
+  <!--</div>-->
+
+
+  <!--<div flex=>-->
+    <!--<h4>Code Skills</h4>-->
+    <!--<div id="chart3"></div>-->
+  <!--</div>-->
+
+  <!--<div flex=>-->
+    <!--<h4>Database Skills</h4>-->
+    <!--<div id="chart4"></div>-->
+  <!--</div>-->
+
+  <!--&lt;!&ndash;<div flex>&ndash;&gt;-->
+    <!--&lt;!&ndash;<h4>Code Usage</h4>&ndash;&gt;-->
+    <!--&lt;!&ndash;<c3chart bindto-id="stacked-bar-plot1-chart">&ndash;&gt;-->
+      <!--&lt;!&ndash;<chart-column column-id="data 1"&ndash;&gt;-->
+                    <!--&lt;!&ndash;column-name="Data 1"&ndash;&gt;-->
+                    <!--&lt;!&ndash;column-color="orange"&ndash;&gt;-->
+                    <!--&lt;!&ndash;column-values="30,200,100,400,150,250"&ndash;&gt;-->
+                    <!--&lt;!&ndash;column-type="bar"/>&ndash;&gt;-->
+      <!--&lt;!&ndash;<chart-group group-values="data"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;</c3chart>&ndash;&gt;-->
+  <!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--</div>-->
+
+<div layout="row" layout-xs="column">
+  <div flex>
+    <h4>Date/Time</h4>
+    <div id="chart1"></div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

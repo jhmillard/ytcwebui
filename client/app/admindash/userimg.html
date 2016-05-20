@@ -1,0 +1,86 @@
+
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <span>Create/Update User Avatar URL</span>
+  </div>
+</md-toolbar>
+
+
+<md-content layout-padding="">
+  <div>
+    <form class="form" name="userImgForm" ng-submit="vm.register(userImgForm,previousPage)">
+
+
+
+      <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-xs="">
+          <label>First Name</label>
+          <input ng-model="userimg.currentUser.first_name">
+
+        </md-input-container>
+
+
+
+        <md-input-container class="md-block" flex-gt-xs="">
+          <label>Last Name</label>
+          <input ng-model="userimg.currentUser.last_name">
+
+        </md-input-container>
+      </div>
+
+      <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-xs="">
+          <label>Client Name</label>
+          <input ng-model="userimg.currentUser.client_name" disabled>
+        </md-input-container>
+
+      </div>
+
+
+      <div layout-gt-sm="row">
+
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>Email</label>
+          <input name="email" ng-model="userimg.currentUser.email" disabled>
+        </md-input-container>
+
+        <md-switch class="md-primary" ng-model="userimg.currentUser.validated" aria-label="manage">
+          Validated
+        </md-switch>
+
+      </div>
+
+      <div layout-gt-sm="row">
+
+        <md-input-container class="md-block" flex-gt-sm="">
+          <label>User/Client Avatar URL</label>
+          <input name="img" ng-model="userimg.currentUser.img_url" diabled>
+        </md-input-container>
+
+      </div>
+
+
+
+
+
+
+
+
+
+      <div>
+        <a class="btn btn-default btn-lg btn-login" ng-click="userimg.update(previousPage)">
+          Update
+        </a>
+      </div>
+
+      <div flex="5" hide-xs="" hide-sm="">
+        <!-- Spacer //-->
+      </div>
+    </form>
+  </div>
+</md-content>
+
+
+
+
+

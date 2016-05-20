@@ -1,0 +1,162 @@
+
+
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <span>Create New Purchase Order</span>
+  </div>
+</md-toolbar>
+
+<!--var PoSchema = new mongoose.Schema({-->
+<!--poid: String,-->
+<!--podesc: String,-->
+<!--pohours: Number,-->
+<!--poclient: String,-->
+<!--popssa: String,-->
+<!--pocontact: {-->
+<!--type: mongoose.Schema.Types.ObjectId, ref: 'User  '-->
+<!--},-->
+<!--info: String,-->
+<!--active: Boolean-->
+<!--});-->
+
+<md-content layout-padding="">
+  <div>
+    <form class="form" name="poForm" ng-submit="podtl.register(poForm,previousPage)">
+
+      <div layout-gt-xs="row">
+        <div flex>
+          <h6>PO Entered</h6>
+          <div>
+            <md-datepicker type="date" ng-model="podtl.currentpo.date" md-placeholder="PO Date"></md-datepicker>
+          </div>
+        </div>
+      </div>
+
+      <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-xs="">
+          <label>Order ID (Required)</label>
+          <input ng-model="podtl.currentpo.poid" required="">
+          <div ng-messages="podtl.currentpo.poid.$error" ng-hide="showHints">
+            <div ng-message-exp="['required']">
+              You must have a purchase order ID
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-xs="">
+          <label>Project (Required)</label>
+          <input ng-model="podtl.currentpo.project" required="">
+          <div ng-messages="podtl.currentpo.project.$error" ng-hide="showHints">
+            <div ng-message-exp="['required']">
+              You must have a project ID
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-xs="">
+          <!--<md-icon><i class="material-icons">local_atm</i></md-icon>-->
+          <label>Hours (Required)</label>
+          <input ng-model="podtl.currentpo.hours" type="number" step="0.01" required="">
+          <div ng-messages="podtl.currentpo.hours.$error" ng-hide="showHints">
+            <div ng-message-exp="['required']">
+              Rate Required
+            </div>
+          </div>
+        </md-input-container>
+
+      </div>
+
+
+
+      <div layout="row">
+        <md-input-container class="md-block" flex-gt-xs="">
+          <label>Description (Required)</label>
+          <textarea ng-model="podtl.currentpo.podesc" required="" md-maxlength="150" rows="5"></textarea>
+          <div ng-messages="podtl.currentpo.podesc.$error" ng-hide="showHints">
+            <div ng-message-exp="['required']">
+              You must have a last name
+            </div>
+          </div>
+        </md-input-container>
+
+      </div>
+
+
+      <div layout-gt-xs="row">
+
+
+        <div flex>
+          <md-input-container>
+            <!--<md-icon><i class="material-icons">perm_identity</i></md-icon>-->
+            <label>Contractor</label>
+            <md-select name="contractor" ng-model="podtl.currentpo.contractor">
+              <md-option ng-repeat="contractor in podtl.users | filter:{role: 'contractor'}" value="{{contractor._id}}">
+                {{contractor.first_name}} {{contractor.last_name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+
+        <div flex>
+          <md-input-container>
+            <!--<md-icon><i class="material-icons">perm_identity</i></md-icon>-->
+            <label>Contact</label>
+            <md-select name="contact" ng-model="podtl.currentpo.contact">
+              <md-option ng-repeat="user in podtl.users | filter:{role: 'contact'}" value="{{user._id}}">
+                {{user.first_name}} {{user.last_name}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+
+        <div flex>
+          <md-input-container>
+            <!--<md-icon><i class="material-icons">language</i></md-icon>-->
+            <label>Client</label>
+            <md-select name="client" id="client" ng-model="podtl.currentpo.client" required="">
+              <md-option ng-repeat="client in podtl.clients" value="{{client._id}}">
+                {{client.client_name}}
+              </md-option>
+            </md-select>
+            <div ng-messages="poForm.client.$error" ng-show="true">
+              <div ng-message-exp="['required']">
+                You must have a project ID
+              </div>
+            </div>
+          </md-input-container>
+        </div>
+
+      </div>
+
+      <div layout-gt-xs="row">
+
+
+      </div>
+
+
+      <div layout-gt-xs="row">
+
+
+      </div>
+
+      <div layout="row">
+
+
+
+      </div>
+
+      <div>
+        <button class="btn btn-inverse btn-lg btn-register" type="submit">
+          {{podtl.submit}}
+        </button>
+        <a class="btn btn-default btn-lg btn-login" ng-click="podtl.cancel(previousPage)">
+          Cancel
+        </a>
+      </div>
+
+      <div flex="5" hide-xs="" hide-sm="">
+        <!-- Spacer //-->
+      </div>
+    </form>
+  </div>
+</md-content>

@@ -1,0 +1,27 @@
+footer {
+  text-align: center;
+  padding: 30px 0;
+  margin-top: 70px;
+  border-top: 1px solid #E5E5E5;
+
+  z-index: 1030;
+}
+
+.footer-fixed-bottom {
+  background-color: #f8f8f8;
+  border-color: #e7e7e7;
+  position: fixed;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  color: #777;
+
+  border-width: 1px 0 0;
+}
+
+.footer-row{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: right;
+}
+

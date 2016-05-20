@@ -1,0 +1,203 @@
+
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools white-text">
+    <span>Purchase Order Id: {{contractorpo.currentPo.poid}}</span>
+    <span flex></span>
+
+    <div hide-sm hide-xs layout-margin>{{contractorpo.client.client_name}}</div>
+    <div><img class="img-user-avatar" src="{{contractorpo.client.img_url}}" class="md-avatar" alt="image caption"></div>
+    <!--<md-button ng-if=!time.showform ng-click="time.showinputform()">Add Time</md-button>-->
+    <!--<md-button class="md-primary">Accent Hue 1</md-button>-->
+    <!--<div ng-if="!time.showform"><a ng-click="time.showinputform()"><i class="material-icons">playlist_add</i></a></div>-->
+  </div>
+</md-toolbar>
+
+
+
+
+
+
+<div layout-gt-xs="row" class="top-admin">
+
+
+
+
+
+  <div flex layout-margin class="contractor-sublist">
+    <div flex class="grey-heading" layout-margin>
+      <h4>Details</h4>
+
+        <h5 layout-margin>PO Description</h5>
+        <md-input-container class="md-block" flex-gt-xs>
+
+          <pre><h5>{{contractorpo.currentPo.podesc}}</h5></pre>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-xs>
+          <label>Project ID</label>
+          <h4><input  ng-model="contractorpo.currentPo.project" disabled style="color: {{contractorpo.disabledTextColor}}"></h4>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-xs>
+          <label>PO Hours</label>
+          <h4><input ng-model="contractorpo.currentPo.hours" disabled style="color: {{contractorpo.pohoursTextColor}}"></h4>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-xs>
+          <label>Hours Used</label>
+          <h4><input  ng-model="contractorpo.hours_used" disabled style="color: {{contractorpo.pohoursTextColor}}"></h4>
+        </md-input-container>
+        <md-input-container class="md-block" flex-gt-xs>
+          <label>Hours Invoiced</label>
+          <h4><input ng-model="contractorpo.hours_invoiced" disabled style="color: {{contractorpo.disabledTextColor}}"></h4>
+        </md-input-container>
+
+    </div>
+  </div>
+
+  <div flex layout-margin class="contractor-sublist">
+    <div flex class="grey-heading" layout-margin>
+
+
+      <div ng-show="contractorpo.show_hours_used" layout-margin>
+        <h4>Total Usage</h4>
+        <h6>(total time entered/total PO time)</h6>
+        <div id="chart1"></div>
+      </div>
+
+      <div ng-show="contractorpo.show_charts" layout-margin>
+        <h4>Invoiced</h4>
+        <h6>(Time invoiced of time entered)</h6>
+        <div id="chart2"></div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+</div>
+
+
+
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools white-text">
+    <span>{{contractorpo.currentPo.poid}} - Timesheets</span>
+
+  </div>
+</md-toolbar>
+
+<div layout-gt-xs="row" class="top-admin">
+  <div flex layout-margin class="contractor-sublist">
+    <div flex class="grey-heading" layout-margin>
+
+    <div>
+      <md-table-container>
+        <table md-table md-row-select="true">
+          <thead md-head md-order="query.order">
+          <tr md-row>
+            <th md-column md-order-by="short_date">Date</th>
+
+            <th md-column>Hours</th>
+            <th md-column hide-sm hide-xs>Description</th>
+
+            <th md-column>Category</th>
+
+            <!--<th md-column>Delete</th>-->
+
+          </tr>
+          </thead>
+          <tbody md-body>
+          <!-- we can let ng-repeat sort the columns for us -->
+          <tr md-row ng-repeat="t in contractorpo.currentTimesheets | orderBy: query.order | limitTo: query.limit: (query.page-1) * query.limit">
+            <td md-cell><a href="/timeview/{{contractorpo.currentuser._id}}/{{t._id}}">{{t.short_date}}</a></td>
+            <!--<td md-cell>{{t.status}}</td>-->
+
+
+
+
+
+
+            <td md-cell>{{t.hours}}</td>
+            <td md-cell hide-sm hide-xs><h5 style="color:darkslategrey">{{t.desc}}</h5></td>
+
+
+
+
+            <td md-cell>
+              <md-chips>
+                <md-chip ng-show="t.category=='dev'" style="background-color:orange; color:white">Development</md-chip>
+                <md-chip ng-show="t.category=='admin'" style="background-color:greenyellow; color:grey">Admin</md-chip>
+                <md-chip ng-show="t.category=='test'" style="background-color:lightblue; color:lightslategrey">Testing</md-chip>
+              </md-chips>
+            </td>
+
+
+
+
+            <!--<td md-cell><a ng-click="time.removeitem($index)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
+
+            <!--<td md-cell><a ng-click="time.delete(t)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
+          </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+
+      <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{contractorpo.currentTimesheets.length}}"></md-table-pagination>
+    </div>
+      </div>
+    </div>
+</div>
+
+
+
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools white-text">
+    <span>Trending Timeline</span>
+
+  </div>
+</md-toolbar>
+<div layout-gt-xs="row" class="top-admin">
+  <div flex layout-margin class="contractor-sublist">
+    <div flex class="grey-heading" layout-margin>
+      <!--<h4>Trending Timeline</h4>-->
+      <h6>(Hours by category)</h6>
+
+      <!--<div flex id="chart1" layout-margin></div>-->
+      <div id="chart4"></div>
+      <!--<chart-column column-id="data 1"-->
+      <!--column-values="30,200,100,400,150,250"-->
+      <!--column-color="yellow"-->
+      <!--column-type="spline"/>-->
+      <!--<chart-column column-id="data 2"-->
+      <!--column-values="50,20,10,40,15,25"-->
+      <!--column-color="blue"-->
+      <!--column-type="line"/>-->
+
+    </div>
+  </div>
+
+</div>
+
+
+<div layout-margin>
+  <a class="btn btn-default btn-lg btn-login" ng-click="contractorpo.back()">
+    Back
+  </a>
+</div>
+
+<!--<div>-->
+  <!--<c3chart bindto-id="gauge-plot1-chart">-->
+    <!--<chart-column column-id="Data 1"-->
+                  <!--column-values="70"-->
+                  <!--column-type="gauge"/>-->
+    <!--<chart-gauge min="0"-->
+                 <!--max="110"-->
+                 <!--units=" hours"-->
+                 <!--width="39"/>-->
+    <!--<chart-colors color-pattern="#e11a7e,#49ff00"-->
+                 <!--thresholds="1,65"-->
+      <!--/>-->
+  <!--</c3chart>-->
+
+
+<!--</div>-->
+
+

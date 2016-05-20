@@ -1,0 +1,40 @@
+.white-text{
+  color: white;
+}
+
+.cont {
+  margin:  50px auto;
+  width: 1000px;
+}
+
+.cont > div {
+  width: 50%;
+}
+.col1 {
+  float: left;
+}
+.col2 {
+  float: right;
+}
+.col3 {
+  margin: auto;
+}
+
+.row_2 {
+  margin: 0 auto;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.column_2 {
+  float: left;
+  padding: 0 15px;
+}
+
+.span_2 {
+  width: 50%;
+}
+.md-chip{
+  background-color:orange;
+  color:white;
+}

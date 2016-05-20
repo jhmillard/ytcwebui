@@ -1,0 +1,178 @@
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools">
+    <div>Create Time Entry:</div>
+    <span flex></span>
+    <div>{{timedtl.currentuser.first_name}} {{timedtl.currentuser.last_name}}</div>
+  </div>
+</md-toolbar>
+
+
+<md-content layout-padding="">
+  <div>
+    <form class="form" name="timeForm" novalidate ng-submit="timedtl.register(timeForm)">
+
+
+      <div layout-gt-xs="row">
+        <div>
+          <h6>Entry Date</h6>
+          <md-datepicker type="date" ng-model="timedtl.timesheet.date" ng-change="timedtl.setcategories(timedtl.timesheet.date,'',timedtl.timesheet.po._id)" md-placeholder="Entry Date" required=""></md-datepicker>
+        </div>
+        <span flex></span>
+        <div ng-if="timedtl.allowDelete">
+          <a class="btn btn-default btn-lg btn-login" style="background-color:orange" ng-click="timedtl.removeTimesheet()">
+            <i style="color:white" class="material-icons">delete</i>
+          </a>
+        </div>
+      </div>
+      <hr>
+
+      <!--<div layout-gt-xs="row">-->
+        <!--<div layout-gt-xs="row">-->
+          <!--<md-input-container class="md-block" flex-gt-xs="">-->
+            <!--<label>Category (required)</label>-->
+            <!--<md-select id="status" name="status" ng-model="timedtl.status">-->
+              <!--<md-option ng-repeat="stat in timedtl.status" value="{{stat.type}}">-->
+                <!--{{stat.desc}}-->
+              <!--</md-option>-->
+            <!--</md-select>-->
+          <!--</md-input-container>-->
+        <!--</div>-->
+      <!--</div>-->
+
+      <div layout-gt-xs="row">
+        <md-input-container class="md-block" flex-gt-sm="">
+          <!--<md-icon><i class="material-icons">perm_identity</i></md-icon>-->
+          <label>Purchase Order (required)</label>
+          <md-select name="po" id="po" ng-model="timedtl.timesheet.po" ng-change="timedtl.setcategories(timedtl.timesheet.date,'',timedtl.timesheet.po._id)"required>
+            <md-option ng-repeat="(i,item) in timedtl.contractorpos" ng-value="{{item}}"
+                       ng-selected="i == 0 ? true:false">
+              {{item.poid}}
+            </md-option>
+          </md-select>
+          <div ng-messages="timeForm.order.$error" ng-hide="showHints">
+            <div ng-message-exp="['required']">
+              Purchase Order Required.
+            </div>
+          </div>
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-sm="">
+          <!--<md-icon><i class="material-icons">perm_identity</i></md-icon>-->
+          <label>Category (required)</label>
+          <md-select id="category" name="category" ng-model="timedtl.timesheet.category" required>
+            <md-option ng-repeat="cat in timedtl.categories" value="{{cat.type}}">
+              {{cat.desc}}
+            </md-option>
+          </md-select>
+
+        </md-input-container>
+
+        <md-input-container class="md-block" flex-gt-xs="">
+          <label>Hours: (Required)</label>
+          <input id="hours" name="hours" type="number" ng-model="timedtl.timesheet.hours" required="">
+          <div ng-messages="timeForm.hours.$error" ng-hide="showHints">
+            <div ng-message-exp="['required']">
+              Hours Required.
+            </div>
+          </div>
+        </md-input-container>
+
+      </div>
+
+
+
+
+      <div layout-gt-xs="row">
+        <div flex>
+          <md-input-container class="md-block" flex-gt-xs="">
+            <label>Description</label>
+          <textarea id="desc" name="desc" ng-model="timedtl.timesheet.desc" columns="1" md-maxlength="200">
+            </textarea>
+          </md-input-container>
+        </div>
+        <div flex></div>
+        <div flex></div>
+      </div>
+
+      <md-divider></md-divider>
+
+      <div layout-gt-xs="row" md-theme="altTheme" >
+        <div flex="30">
+          <h5>Code Skills</h5>
+
+          <md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.code.cplus" aria-label="C++">
+            C++
+          </md-switch>
+          <md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.code.javascript" aria-label="javascript">
+            JavaScript
+          </md-switch>
+          <md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.code.csharp" aria-label="C#">
+            C#
+          </md-switch>
+          <md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.code.plsql" aria-label="plsql">
+            PL/SQL
+          </md-switch>
+          <md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.code.java" aria-label="Java">
+            Java
+          </md-switch>
+
+        </div>
+        <div flex="5"></div>
+        <div flex="30">
+          <h5>Database Skills</h5>
+
+          <md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.db.oracle" aria-label="oracledb">
+            Oracle DB
+          </md-switch>
+          <md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.db.sqlserver" aria-label="sqlserverdb">
+            SQL Server
+          </md-switch>
+          <md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.db.mysql" aria-label="sqlserverdb">
+            MySQL
+          </md-switch>
+          <md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.db.mongo" aria-label="mongodb">
+            MongoDB
+          </md-switch>
+        </div>
+        <div flex="5"></div>
+        <div flex="30">
+          <h5>Leadership Skills</h5>
+
+          <md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.leadership.management" aria-label="manage">
+            Management
+          </md-switch>
+          <md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.leadership.training" aria-label="lead">
+            Training
+          </md-switch>
+
+        </div>
+      </div>
+
+
+
+      <div flex="5" hide-xs="" hide-sm="">
+        <!-- Spacer //-->
+      </div>
+
+      <div ng-if="!timedtl.showindeterminate">
+        <button class="btn btn-inverse btn-lg btn-register" type="submit" ng-disabled="timeForm.$invalid">
+          {{timedtl.submitbutton}}
+        </button>
+        <a class="btn btn-default btn-lg btn-login" ng-click="timedtl.cancel()">
+          Cancel
+        </a>
+
+      </div>
+
+      <div ng-if="timedtl.showindeterminate">
+        <div layout="row" layout-sm="column" md-theme="altTheme"  layout-align="space-around">
+          <md-progress-circular class="md-primary" md-mode="indeterminate"></md-progress-circular>
+        </div>
+      </div>
+
+      <div flex="5" hide-xs="" hide-sm="">
+        <!-- Spacer //-->
+      </div>
+    </form>
+  </div>
+</md-content>

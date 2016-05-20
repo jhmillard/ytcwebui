@@ -1,0 +1,27 @@
+.error{
+  color: red;
+}
+
+.header_info{
+  color: #8699a4;
+  /*margin-left: 25px;*/
+}
+.status_info{
+  color: #00A000;
+}
+
+.md-toolbar-tools-a{
+  background: greenyellow;
+}
+
+.center {
+  margin: auto;
+  width: 90%;
+
+  padding: 5px;
+}
+
+.status_done{
+  background-color: blue;
+  color: darkslategrey;
+}
