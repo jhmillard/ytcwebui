@@ -70,6 +70,156 @@
     </div>
   </div>
 </div>
+
+
+
+<div layout-gt-xs="row" class="top-admin">
+
+  <div flex layout-margin class="contractor-sublist">
+    <div flex class="grey-heading">
+
+      <div>
+        <span><h4>Current PO's</h4></span>
+        <span flex></span>
+        <div>
+          <md-input-container>
+            <label>Clients</label>
+            <md-select name="clientid" ng-change="contractordash.setPoList()" ng-model="contractordash.client._id">
+
+              <md-option ng-repeat="client in contractordash.contractorClients" ng-value=client._id>{{client.client_name}}</md-option>
+
+            </md-select>
+          </md-input-container>
+        </div>
+      </div>
+
+
+      <md-table-container ng-show="contractordash.all_purchase_orders">
+        <table md-table md-row-select="true">
+          <thead md-head md-order="query.order">
+          <tr md-row>
+            <th md-column>Client</th>
+            <th md-column md-order-by="po.name">PO</th>
+            <th md-column md-order-by="po.project">Project ID</th>
+            <!--<th md-column md-order-by="po.hours">Hours</th>-->
+            <!--<th md-column md-order-by="po.hours_used">Used</th>-->
+            <!--<th md-column>Delete</th>-->
+
+          </tr>
+          </thead>
+          <tbody md-body>
+          <!-- we can let ng-repeat sort the columns for us -->
+          <tr md-row ng-repeat="t in contractordash.contractorPos  | orderBy: query.order | limitTo: query.limit: (query.page-1) * query.limit">
+            <td md-cell layout-margin><img class="img-user-avatar" src="{{t.clientImage}}" class="md-avatar" alt="image caption"></td>
+            <td md-cell><a href="/contractorpo?poid={{t._id}}">{{t.poid}}</a></td>
+            <td md-cell>{{t.project}}</td>
+            <!--<td md-cell>{{t.hours}}</td>-->
+            <!--<td md-cell>{{t.hours_used}}</td>-->
+
+
+            <!--<td md-cell><a ng-click="time.removeitem($index)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
+
+            <!--<td md-cell><a ng-click="time.delete(t)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
+          </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+
+      <md-table-container ng-show="contractordash.filtered_purchase_orders">
+        <table md-table md-row-select="true">
+          <thead md-head md-order="query.order">
+          <tr md-row>
+            <th md-column>Client</th>
+            <th md-column md-order-by="po.name">PO</th>
+            <th md-column md-order-by="po.project">Project ID</th>
+            <!--<th md-column md-order-by="po.hours">Hours</th>-->
+            <!--<th md-column md-order-by="po.hours_used">Used</th>-->
+            <!--<th md-column>Delete</th>-->
+
+          </tr>
+          </thead>
+          <tbody md-body>
+          <!-- we can let ng-repeat sort the columns for us -->
+          <tr md-row ng-repeat="t in contractordash.filteredPos  | orderBy: query.order | limitTo: query.limit: (query.page-1) * query.limit">
+            <td md-cell layout-margin><img class="img-user-avatar" src="{{t.clientImage}}" class="md-avatar" alt="image caption"></td>
+            <td md-cell><a  href="/contractorpo?poid={{t._id}}">{{t.poid}}</a></td>
+            <td md-cell>{{t.project}}</td>
+            <!--<td md-cell>{{t.hours}}</td>-->
+            <!--<td md-cell>{{t.hours_used}}</td>-->
+
+
+            <!--<td md-cell><a ng-click="time.removeitem($index)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
+
+            <!--<td md-cell><a ng-click="time.delete(t)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
+          </tr>
+          </tbody>
+        </table>
+      </md-table-container>
+      <md-table-pagination ng-show="contractordash.all_purchase_orders" md-limit="query.limit" md-page="query.page" md-total="{{contractordash.contractorPos.length}}"></md-table-pagination>
+      <md-table-pagination ng-show="contractordash.filtered_purchase_orders" md-limit="query.limit" md-page="query.page" md-total="{{contractordash.filteredPos.length}}"></md-table-pagination>
+    </div>
+
+  </div>
+
+
+  <div flex layout-margin class="contractor-sublist">
+    <div flex class="grey-heading">
+      <h4>Current Invoiced Hours</h4>
+      <div>
+        <md-table-container>
+          <table md-table md-row-select="true">
+            <thead md-head md-order="query.order">
+            <tr md-row>
+              <th md-column>Invoice ID</th>
+              <th md-column>Hours</th>
+              <th md-column>Cost</th>
+              <th md-column>Status</th>
+              <!--<th md-column>Delete</th>-->
+
+            </tr>
+            </thead>
+            <tbody md-body>
+            <!-- we can let ng-repeat sort the columns for us -->
+            <tr md-row ng-repeat="i in contractordash.contractorInvoices | orderBy: query.order | limitTo: query.limit: (query.page-1) * query.limit">
+              <td md-cell><a href="/invoiceview?invoice={{i._id}}">{{i.name}}</a></td>
+              <td md-cell>{{i.total_hours}}</td>
+              <td md-cell>{{i.total_contractor_cost | currency:"$"}}</td>
+              <!--<td md-cell>{{i.status}}</td>-->
+              <td md-cell>
+                <md-chips>
+                  <md-chip ng-show="i.status=='entered'" style="background-color:yellow; color:darkslategrey">Entered</md-chip>
+                  <md-chip ng-show="i.status=='invoiced'" style="background-color:red; color:white">Invoiced</md-chip>
+                  <md-chip ng-show="i.status=='sent'" style="background-color:red; color:white">Sent</md-chip>
+                  <md-chip ng-show="i.status=='received'" style="background-color:green; color:white">Complete</md-chip>
+                  <md-chip ng-show="i.status=='paid'" style="background-color:green; color:white">Complete</md-chip>
+                </md-chips>
+              </td>
+
+
+              <!--<td md-cell><a ng-click="time.removeitem($index)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
+
+              <!--<td md-cell><a ng-click="time.delete(t)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
+            </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+
+        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{contractordash.contractorInvoices.length}}"></md-table-pagination>
+
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
+
+
+
+
+
+
+
 <div layout-gt-xs="row" class="top-admin">
 
   <div flex layout-margin class="contractor-sublist">
@@ -162,149 +312,7 @@
 
 </div>
 
-<div layout-gt-xs="row" class="top-admin">
 
-
-
-
-  <div flex layout-margin class="contractor-sublist">
-    <div flex class="grey-heading">
-
-      <div>
-        <span><h4>Current PO's</h4></span>
-        <span flex></span>
-        <div>
-          <md-input-container>
-            <label>Clients</label>
-            <md-select name="clientid" ng-change="contractordash.setPoList()" ng-model="contractordash.client._id">
-
-              <md-option ng-repeat="client in contractordash.contractorClients" ng-value=client._id>{{client.client_name}}</md-option>
-
-            </md-select>
-          </md-input-container>
-        </div>
-      </div>
-
-
-      <md-table-container ng-show="contractordash.all_purchase_orders">
-        <table md-table md-row-select="true">
-          <thead md-head md-order="query.order">
-          <tr md-row>
-            <th md-column>Client</th>
-            <th md-column md-order-by="po.name">PO</th>
-            <th md-column md-order-by="po.project">Project ID</th>
-            <th md-column md-order-by="po.hours">Hours</th>
-            <th md-column md-order-by="po.hours_used">Used</th>
-            <!--<th md-column>Delete</th>-->
-
-          </tr>
-          </thead>
-          <tbody md-body>
-          <!-- we can let ng-repeat sort the columns for us -->
-          <tr md-row ng-repeat="t in contractordash.contractorPos  | orderBy: query.order | limitTo: query.limit: (query.page-1) * query.limit">
-            <td md-cell layout-margin><img class="img-user-avatar" src="{{t.clientImage}}" class="md-avatar" alt="image caption"></td>
-            <td md-cell><a href="/contractorpo?poid={{t._id}}">{{t.poid}}</a></td>
-            <td md-cell>{{t.project}}</td>
-            <td md-cell>{{t.hours}}</td>
-            <td md-cell>{{t.hours_used}}</td>
-
-
-            <!--<td md-cell><a ng-click="time.removeitem($index)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
-
-            <!--<td md-cell><a ng-click="time.delete(t)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
-          </tr>
-          </tbody>
-        </table>
-      </md-table-container>
-
-      <md-table-container ng-show="contractordash.filtered_purchase_orders">
-        <table md-table md-row-select="true">
-          <thead md-head md-order="query.order">
-          <tr md-row>
-            <th md-column>Client</th>
-            <th md-column md-order-by="po.name">PO</th>
-            <th md-column md-order-by="po.project">Project ID</th>
-            <th md-column md-order-by="po.hours">Hours</th>
-            <th md-column md-order-by="po.hours_used">Used</th>
-            <!--<th md-column>Delete</th>-->
-
-          </tr>
-          </thead>
-          <tbody md-body>
-          <!-- we can let ng-repeat sort the columns for us -->
-          <tr md-row ng-repeat="t in contractordash.filteredPos  | orderBy: query.order | limitTo: query.limit: (query.page-1) * query.limit">
-            <td md-cell layout-margin><img class="img-user-avatar" src="{{t.clientImage}}" class="md-avatar" alt="image caption"></td>
-            <td md-cell><a  href="/contractorpo?poid={{t._id}}">{{t.poid}}</a></td>
-            <td md-cell>{{t.project}}</td>
-            <td md-cell>{{t.hours}}</td>
-            <td md-cell>{{t.hours_used}}</td>
-
-
-            <!--<td md-cell><a ng-click="time.removeitem($index)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
-
-            <!--<td md-cell><a ng-click="time.delete(t)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
-          </tr>
-          </tbody>
-        </table>
-      </md-table-container>
-      <md-table-pagination ng-show="contractordash.all_purchase_orders" md-limit="query.limit" md-page="query.page" md-total="{{contractordash.contractorPos.length}}"></md-table-pagination>
-      <md-table-pagination ng-show="contractordash.filtered_purchase_orders" md-limit="query.limit" md-page="query.page" md-total="{{contractordash.filteredPos.length}}"></md-table-pagination>
-    </div>
-
-  </div>
-
-
-  <div flex layout-margin class="contractor-sublist">
-    <div flex class="grey-heading">
-      <h4>Current Invoiced Hours</h4>
-      <div>
-        <md-table-container>
-          <table md-table md-row-select="true">
-            <thead md-head md-order="query.order">
-            <tr md-row>
-              <th md-column>Invoice ID</th>
-              <th md-column>Hours</th>
-              <th md-column>Cost</th>
-              <th md-column>Status</th>
-              <!--<th md-column>Delete</th>-->
-
-            </tr>
-            </thead>
-            <tbody md-body>
-            <!-- we can let ng-repeat sort the columns for us -->
-            <tr md-row ng-repeat="i in contractordash.contractorInvoices | orderBy: query.order | limitTo: query.limit: (query.page-1) * query.limit">
-              <td md-cell><a href="/invoiceview?invoice={{i._id}}">{{i.name}}</a></td>
-              <td md-cell>{{i.total_hours}}</td>
-              <td md-cell>{{i.total_contractor_cost | currency:"$"}}</td>
-              <!--<td md-cell>{{i.status}}</td>-->
-              <td md-cell>
-                <md-chips>
-                  <md-chip ng-show="i.status=='entered'" style="background-color:yellow; color:darkslategrey">Entered</md-chip>
-                  <md-chip ng-show="i.status=='invoiced'" style="background-color:red; color:white">Invoiced</md-chip>
-                  <md-chip ng-show="i.status=='sent'" style="background-color:red; color:white">Sent</md-chip>
-                  <md-chip ng-show="i.status=='received'" style="background-color:green; color:white">Complete</md-chip>
-                  <md-chip ng-show="i.status=='paid'" style="background-color:green; color:white">Complete</md-chip>
-                </md-chips>
-              </td>
-
-
-              <!--<td md-cell><a ng-click="time.removeitem($index)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
-
-              <!--<td md-cell><a ng-click="time.delete(t)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
-            </tr>
-            </tbody>
-          </table>
-        </md-table-container>
-
-        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{contractordash.contractorInvoices.length}}"></md-table-pagination>
-
-      </div>
-    </div>
-
-  </div>
-
-
-</div>
 
 
 

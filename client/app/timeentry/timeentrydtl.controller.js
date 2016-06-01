@@ -221,10 +221,11 @@ class TimeentryDetailCtrl{
           entryJSON.contractor = this.currentuser.first_name + " " + this.currentuser.last_name;
           entryJSON.po = timerow.po.name;
           entryJSON.hours = timerow.hours;
+          timerow.contractor =  this.currentuser.first_name + " " + this.currentuser.last_name;
 
 
           this.showindeterminate = true;
-          this.User.email(entryJSON,()=>{
+          this.User.email(timerow,()=>{
             this.$state.go('contractordash',{},{reload: true});
           });
           //this.$state.go('contractordash',{},{reload: true});

@@ -75,18 +75,49 @@
 
 </div>
 
+<md-toolbar class="md-table-toolbar md-default">
+  <div class="md-toolbar-tools white-text">
+    <span>Trending Timeline</span>
+    <span flex></span>
+    <div ng-if="!contractorpo.trending_show"><a ng-click="contractorpo.toggleTrendingView()"><md-button layout-margin style="color:white"><i class="material-icons" >keyboard_arrow_down</i></md-button></a></div>
+    <div ng-if="contractorpo.trending_show"><a ng-click="contractorpo.toggleTrendingView()"><md-button layout-margin style="color:white"><i class="material-icons" >keyboard_arrow_up</i></md-button></a></div>
+  </div>
+</md-toolbar>
+<div layout-gt-xs="column" class="top-admin">
+  <div flex layout-margin class="contractor-sublist">
+    <div ng-show="contractorpo.trending_show" flex class="grey-heading">
+      <!--<h4>Trending Timeline</h4>-->
+      <h6>(Hours by category)</h6>
+
+      <!--<div flex id="chart1" layout-margin></div>-->
+      <div id="chart4"></div>
+      <!--<chart-column column-id="data 1"-->
+      <!--column-values="30,200,100,400,150,250"-->
+      <!--column-color="yellow"-->
+      <!--column-type="spline"/>-->
+      <!--<chart-column column-id="data 2"-->
+      <!--column-values="50,20,10,40,15,25"-->
+      <!--column-color="blue"-->
+      <!--column-type="line"/>-->
+
+    </div>
+  </div>
+
+</div>
 
 
 <md-toolbar class="md-table-toolbar md-default">
   <div class="md-toolbar-tools white-text">
     <span>{{contractorpo.currentPo.poid}} - Timesheets</span>
-
+    <span flex></span>
+    <div ng-if="!contractorpo.timesheet_show"><a ng-click="contractorpo.toggleTimesheetView()"><md-button layout-margin style="color:white"><i class="material-icons" >keyboard_arrow_down</i></md-button></a></div>
+    <div ng-if="contractorpo.timesheet_show"><a ng-click="contractorpo.toggleTimesheetView()"><md-button layout-margin style="color:white"><i class="material-icons" >keyboard_arrow_up</i></md-button></a></div>
   </div>
 </md-toolbar>
 
 <div layout-gt-xs="row" class="top-admin">
   <div flex layout-margin class="contractor-sublist">
-    <div flex class="grey-heading" layout-margin>
+    <div ng-if="contractorpo.timesheet_show" flex class="grey-heading" layout-margin>
 
     <div>
       <md-table-container>
@@ -148,33 +179,7 @@
 
 
 
-<md-toolbar class="md-table-toolbar md-default">
-  <div class="md-toolbar-tools white-text">
-    <span>Trending Timeline</span>
 
-  </div>
-</md-toolbar>
-<div layout-gt-xs="row" class="top-admin">
-  <div flex layout-margin class="contractor-sublist">
-    <div flex class="grey-heading" layout-margin>
-      <!--<h4>Trending Timeline</h4>-->
-      <h6>(Hours by category)</h6>
-
-      <!--<div flex id="chart1" layout-margin></div>-->
-      <div id="chart4"></div>
-      <!--<chart-column column-id="data 1"-->
-      <!--column-values="30,200,100,400,150,250"-->
-      <!--column-color="yellow"-->
-      <!--column-type="spline"/>-->
-      <!--<chart-column column-id="data 2"-->
-      <!--column-values="50,20,10,40,15,25"-->
-      <!--column-color="blue"-->
-      <!--column-type="line"/>-->
-
-    </div>
-  </div>
-
-</div>
 
 
 <div layout-margin>

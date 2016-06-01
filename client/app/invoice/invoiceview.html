@@ -10,30 +10,150 @@
 </md-toolbar>
 
 
-<div layout-gt-xs="row" class="top-admin" ng-show="true">
 
-  <div flex layout-margin class="contractor-sublist">
-    <div flex class="grey-heading">
-      <div layout-gt-xs="row">
-        <div flex>
-          <h4 class="header_info">Invoice ID:</h4>
-          <h4 class="header_info">Purchase Order:</h4>
-          <h4 class="header_info">Project</h4>
 
-          <h4 class="header_info">Client:</h4>
-          <h4></h4>
-        </div>
-        <div flex>
-          <h4 class="header_info">{{inview.currentInvoice.name}}</h4>
-          <h4 class="header_info">{{inview.currentInvoice.po.poid}}</h4>
-          <h4 class="header_info">{{inview.po.project}}</h4>
 
-          <h4 class="header_info">{{inview.client.client_name}}</h4>
-          <h4 class="header_info">{{inview.client.email}}</h4>
+<div layout-gt-xs="row" class="top-admin">
+
+  <div flex>
+    <div layout-gt-xs="row" class="top-admin">
+      <div flex layout-margin class="contractor-sublist">
+        <div flex class="grey-heading" layout-margin>
+
+          <h4>Details:</h4>
+
+          <div layout-gt-xs="row">
+            <div>
+              <h4 class="header_info">Invoice ID:</h4>
+              <h4 class="header_info">Purchase Order:</h4>
+              <h4 class="header_info">Project</h4>
+
+              <h4 class="header_info">Client:</h4>
+              <h4 class="header_info">Email:</h4>
+              <h4 class="header_info">Contractor:</h4>
+              <h4></h4>
+            </div>
+            <span flex></span>
+            <div>
+              <h4 class="header_info">{{inview.currentInvoice.name}}</h4>
+              <h4 class="header_info">{{inview.currentInvoice.po.poid}}</h4>
+              <h4 class="header_info">{{inview.po.project}}</h4>
+
+              <h4 class="header_info">{{inview.client.client_name}}</h4>
+              <h4 class="header_info">{{inview.client.email}}</h4>
+              <h4 class="header_info">{{inview.invoiceContractor.first_name}} {{inview.invoiceContractor.last_name}}</h4>
+              <!--<img class="img-user-avatar" src="{{inview.invoiceContractor.img_url}}" class="md-avatar" alt="image caption">-->
+
+
+            </div>
+          </div>
+
+          <md-divider></md-divider>
+
+
+          <div layout-gt-xs="row" layout-margin>
+            <h4 style="color:grey">Invoice Total Hours:</h4>
+            <span flex></span>
+            <h4>{{inview.hoursTotal}}</h4>
+          </div>
+          <!--<md-divider></md-divider>-->
+          <div layout-gt-xs="row" layout-margin>
+            <h4 style="color:orangered">Invoice Total Cost:</h4>
+            <span flex></span>
+            <h4>{{inview.contractorCost | currency:"$"}}</h4>
+          </div>
+
+
+
+        <!--</div>-->
+      </div>
+
+  </div>
+
+
+  <!---->
+  <div flex>
+    <div layout-gt-xs="row" class="top-admin">
+      <div flex layout-margin class="contractor-sublist">
+        <div flex class="grey-heading" layout-margin>
+          <h4>Timesheets:</h4>
+
+          <md-table-container>
+            <table md-table md-row-select="true">
+              <thead md-head md-order="query.order">
+              <tr md-row>
+                <th md-column>Date</th>
+                <!--<th md-column hide-sm hide-xs>Contractor</th>-->
+
+                <th md-column>Hours</th>
+                <th md-column>Category</th>
+                <!--<th md-column ng-show={{inview.showDelete}}>Remove</th>-->
+
+              </tr>
+              </thead>
+              <tbody md-body>
+              <!-- we can let ng-repeat sort the columns for us -->
+              <tr md-row md-select="t"  ng-repeat="t in inview.currentInvoice.timesheets | orderBy: query.order | limitTo: query.limit: (query.page-1) * query.limit">
+
+                <td md-cell><a href="/timeview/{{t.contractor._id}}/{{t.id}}">{{t.short_date}}</a></td>
+                <!--<td md-cell layout-margin hide-xs hide-sm><img class="img-user-avatar" src="{{t.contractor.img_url}}" class="md-avatar" alt="image caption">-->
+                <!--{{t.contractor.first_name}} {{t.contractor.last_name}}-->
+                <!--</td>-->
+                <td md-cell>{{t.hours}}</td>
+
+                <td md-cell>
+                  <md-chips>
+                    <md-chip ng-show="t.category=='dev'" style="background-color:orange; color:white">Development</md-chip>
+                    <md-chip ng-show="t.category=='admin'" style="background-color:greenyellow; color:grey">Admin</md-chip>
+                    <md-chip ng-show="t.category=='test'" style="background-color:lightblue; color:lightslategrey">Testing</md-chip>
+                  </md-chips>
+                </td>
+                <!--<td md-cell ng-if="inview.currentInvoice.status=='entered'"><a ng-click="inview.remove(t)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
+                <!--<td md-cell ng-if="inview.currentInvoice.status !='entered'"><i class="material-icons" style="color:red">done</i></td>-->
+              </tr>
+              </tbody>
+            </table>
+          </md-table-container>
+
+          <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{inview.currentInvoice.timesheets.length}}"></md-table-pagination>
+
         </div>
       </div>
+
     </div>
   </div>
+
+  <!---->
+
+
+</div>
+
+
+
+<div layout-gt-xs="row" class="top-admin" ng-show="true">
+
+  <!--<div flex layout-margin class="contractor-sublist">-->
+    <!--<div flex class="grey-heading">-->
+      <!--<div layout-gt-xs="row">-->
+        <!--<div flex>-->
+          <!--<h4 class="header_info">Invoice ID:</h4>-->
+          <!--<h4 class="header_info">Purchase Order:</h4>-->
+          <!--<h4 class="header_info">Project</h4>-->
+
+          <!--<h4 class="header_info">Client:</h4>-->
+          <!--<h4></h4>-->
+        <!--</div>-->
+        <!--<div flex>-->
+          <!--<h4 class="header_info">{{inview.currentInvoice.name}}</h4>-->
+          <!--<h4 class="header_info">{{inview.currentInvoice.po.poid}}</h4>-->
+          <!--<h4 class="header_info">{{inview.po.project}}</h4>-->
+
+          <!--<h4 class="header_info">{{inview.client.client_name}}</h4>-->
+          <!--<h4 class="header_info">{{inview.client.email}}</h4>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
 
   <div flex layout-margin class="contractor-sublist">
     <div flex class="grey-heading">
@@ -181,86 +301,83 @@
 
       </div>
 
-      <md-progress-linear md-mode="determinate" value={{inview.progress}}></md-progress-linear>
-
-
-
+      <!--<md-progress-linear md-mode="determinate" value={{inview.progress}}></md-progress-linear>-->
 
     </div>
-
   </div>
-
 </div>
 
 
-<md-toolbar class="md-table-toolbar md-default">
-  <div class="md-toolbar-tools">
-
-    <div>Invoice Time Sheets:</div>
-
-  </div>
-</md-toolbar>
 
 
-<div ng-show="inview.showList" layout-gt-xs="row" class="top-admin">
-  <div flex layout-margin class="contractor-sublist">
-    <div flex class="grey-heading" layout-margin>
+<!--<md-toolbar class="md-table-toolbar md-default">-->
+  <!--<div class="md-toolbar-tools">-->
 
-  <md-table-container>
-    <table md-table md-row-select="true">
-      <thead md-head md-order="query.order">
-      <tr md-row>
-        <th md-column>Date</th>
-        <th md-column hide-sm hide-xs>Contractor</th>
+    <!--<div>Invoice Time Sheets:</div>-->
 
-        <th md-column>Hours</th>
-        <th md-column>Category</th>
-        <th md-column ng-show={{inview.showDelete}}>Remove</th>
-
-      </tr>
-      </thead>
-      <tbody md-body>
-      <!-- we can let ng-repeat sort the columns for us -->
-      <tr md-row md-select="t"  ng-repeat="t in inview.currentInvoice.timesheets | orderBy: query.order | limitTo: query.limit: (query.page-1) * query.limit">
-
-        <td md-cell><a href="/timeview/{{t.contractor._id}}/{{t.id}}">{{t.short_date}}</a></td>
-        <td md-cell layout-margin hide-xs hide-sm><img class="img-user-avatar" src="{{t.contractor.img_url}}" class="md-avatar" alt="image caption">
-          {{t.contractor.first_name}} {{t.contractor.last_name}}
-          </td>
-        <td md-cell>{{t.hours}}</td>
-
-        <td md-cell>
-          <md-chips>
-            <md-chip ng-show="t.category=='dev'" style="background-color:orange; color:white">Development</md-chip>
-            <md-chip ng-show="t.category=='admin'" style="background-color:greenyellow; color:grey">Admin</md-chip>
-            <md-chip ng-show="t.category=='test'" style="background-color:lightblue; color:lightslategrey">Testing</md-chip>
-          </md-chips>
-        </td>
-        <td md-cell ng-if="inview.currentInvoice.status=='entered'"><a ng-click="inview.remove(t)"><md-button><i class="material-icons">clear</i></md-button></a></td>
-        <td md-cell ng-if="inview.currentInvoice.status !='entered'"><i class="material-icons" style="color:red">done</i></td>
-      </tr>
-      </tbody>
-    </table>
-  </md-table-container>
-
-  <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{inview.currentInvoice.timesheets.length}}"></md-table-pagination>
+  <!--</div>-->
+<!--</md-toolbar>-->
 
 
-  </div>
-    </div>
+<!--<div ng-show="inview.showList" layout-gt-xs="row" class="top-admin">-->
+  <!--<div flex layout-margin class="contractor-sublist">-->
+    <!--<div flex class="grey-heading" layout-margin>-->
 
-</div>
+  <!--<md-table-container>-->
+    <!--<table md-table md-row-select="true">-->
+      <!--<thead md-head md-order="query.order">-->
+      <!--<tr md-row>-->
+        <!--<th md-column>Date</th>-->
+        <!--<th md-column hide-sm hide-xs>Contractor</th>-->
 
-  <md-toolbar class="md-table-toolbar md-default">
-    <div class="md-toolbar-tools white-text">
-      <span>Trending Timeline</span>
+        <!--<th md-column>Hours</th>-->
+        <!--<th md-column>Category</th>-->
+        <!--&lt;!&ndash;<th md-column ng-show={{inview.showDelete}}>Remove</th>&ndash;&gt;-->
 
-    </div>
-  </md-toolbar>
+      <!--</tr>-->
+      <!--</thead>-->
+      <!--<tbody md-body>-->
+      <!--&lt;!&ndash; we can let ng-repeat sort the columns for us &ndash;&gt;-->
+      <!--<tr md-row md-select="t"  ng-repeat="t in inview.currentInvoice.timesheets | orderBy: query.order | limitTo: query.limit: (query.page-1) * query.limit">-->
+
+        <!--<td md-cell><a href="/timeview/{{t.contractor._id}}/{{t.id}}">{{t.short_date}}</a></td>-->
+        <!--<td md-cell layout-margin hide-xs hide-sm><img class="img-user-avatar" src="{{t.contractor.img_url}}" class="md-avatar" alt="image caption">-->
+          <!--{{t.contractor.first_name}} {{t.contractor.last_name}}-->
+          <!--</td>-->
+        <!--<td md-cell>{{t.hours}}</td>-->
+
+        <!--<td md-cell>-->
+          <!--<md-chips>-->
+            <!--<md-chip ng-show="t.category=='dev'" style="background-color:orange; color:white">Development</md-chip>-->
+            <!--<md-chip ng-show="t.category=='admin'" style="background-color:greenyellow; color:grey">Admin</md-chip>-->
+            <!--<md-chip ng-show="t.category=='test'" style="background-color:lightblue; color:lightslategrey">Testing</md-chip>-->
+          <!--</md-chips>-->
+        <!--</td>-->
+        <!--&lt;!&ndash;<td md-cell ng-if="inview.currentInvoice.status=='entered'"><a ng-click="inview.remove(t)"><md-button><i class="material-icons">clear</i></md-button></a></td>&ndash;&gt;-->
+        <!--&lt;!&ndash;<td md-cell ng-if="inview.currentInvoice.status !='entered'"><i class="material-icons" style="color:red">done</i></td>&ndash;&gt;-->
+      <!--</tr>-->
+      <!--</tbody>-->
+    <!--</table>-->
+  <!--</md-table-container>-->
+
+  <!--<md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{inview.currentInvoice.timesheets.length}}"></md-table-pagination>-->
+
+
+  <!--</div>-->
+    <!--</div>-->
+
+<!--</div>-->
+
+  <!--<md-toolbar class="md-table-toolbar md-default">-->
+    <!--<div class="md-toolbar-tools white-text">-->
+      <!--<span>Trending Timeline</span>-->
+
+    <!--</div>-->
+  <!--</md-toolbar>-->
   <div layout-gt-xs="row" class="top-admin">
     <div flex layout-margin class="contractor-sublist">
       <div flex class="grey-heading" layout-margin>
-        <!--<h4>Trending Timeline</h4>-->
+        <h4>Trending Timeline</h4>
         <h6>(Hours by category)</h6>
 
         <!--<div flex id="chart1" layout-margin></div>-->

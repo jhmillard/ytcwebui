@@ -56,5 +56,6 @@ setInterval(function(){
 
 export function sendInvoiceEmailNotification(expiredInvoices) {
 
+//  This is where we will format and send an email/text to configured users.
 }
 

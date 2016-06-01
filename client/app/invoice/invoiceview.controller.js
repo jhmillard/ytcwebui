@@ -12,6 +12,9 @@ class InvoiceViewCtrl {
     this.User = User;
     this.Po = Po;
     this.Chart = Chart;
+    this.hoursTotal = 0;
+    this.contractorCost = 0;
+
     this.currentUser = User.get({id: Auth.getCurrentUser()._id},()=>{
       this.loadData();
     });
@@ -66,27 +69,38 @@ class InvoiceViewCtrl {
       this.po = this.Po.get({id: this.currentInvoice.po._id},()=>{
 
         this.client = this.User.get({id:this.po.client},()=>{
+          this.invoiceContractor = this.User.get({id:this.po.contractor},()=>{
 
-        })
+            //do the rest of the stuff here.
+            this.timeSheetArray = [];
 
-      })
-      //do the rest of the stuff here.
-      this.timeSheetArray = [];
+            angular.forEach(this.currentInvoice.timesheets,(tvalue,tkey)=>{
 
-      angular.forEach(this.currentInvoice.timesheets,(tvalue,tkey)=>{
+              //need to grab the timesheet user
+              this.User.get({id: this.currentInvoice.timesheets[tkey].user_id},(user)=>{
+                this.currentInvoice.timesheets[tkey].contractor = user;
+                angular.forEach(user.timesheets,(value,key)=>{
+                  if(user.timesheets[key]._id == this.currentInvoice.timesheets[tkey].id){
+                    this.timeSheetArray.push(user.timesheets[key]);
+                    this.hoursTotal += user.timesheets[key].hours;
 
-        //need to grab the timesheet user
-        this.User.get({id: this.currentInvoice.timesheets[tkey].user_id},(user)=>{
-          this.currentInvoice.timesheets[tkey].contractor = user;
-          angular.forEach(user.timesheets,(value,key)=>{
-            if(user.timesheets[key]._id == this.currentInvoice.timesheets[tkey].id){
-              this.timeSheetArray.push(user.timesheets[key]);
-            }
+                  }
+                })
+                this.chartJSON = this.Chart.returnTimesheetListDataJSON(this.timeSheetArray);
+                this.configureCharts();
+                this.contractorCost = (this.hoursTotal * this.invoiceContractor.contractor_rate);
+              })
+            })
+
+
+
+
           })
-          this.chartJSON = this.Chart.returnTimesheetListDataJSON(this.timeSheetArray);
-          this.configureCharts();
+
         })
+
       })
+
 
 
 

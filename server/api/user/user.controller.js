@@ -201,12 +201,12 @@ export function sendEmail(req,res){
     to: 'john.millard@yellowtoadconsulting.com',
     subject: 'Time Entered For: ' + req.body.contractor,
     text: 'Plaintext version of the message',
-    html: "<table> <tr> <td><b>Contractor: " + req.body.contractor + "</b></td> </tr> <tr> <td>Hours Entered: " + req.body.hours +
-          "</td> </tr> <tr> <td>Purchase Order: " + req.body.po + "</td> </tr>" +
-          "<tr> <td>Client: " + req.body.po + "</td> </tr>" +
-          "<tr> <td>Client: " + req.body.po + "</td> </tr>" +
-          "<tr> <td>Client: " + req.body.po + "</td> </tr>" +
-          "<tr> <td>Client: " + req.body.po + "</td> </tr>" +
+    html: "<table> <tr> <td><h2 style='color:blue'><b>Contractor: " + req.body.contractor + "</b></h2></td> </tr>" +
+          "<tr> <td>Hours Entered: <h1 style='color:red'>" + req.body.hours + "</h1>" +
+          "</td> </tr> <tr> <td>Purchase Order: <h1 style='color:green'>" + req.body.po.name + "</h1></td> </tr>" +
+          "<tr> <td>Date: " + req.body.short_date + "</td> </tr>" +
+          "<tr> <td>Type: " + req.body.category + "</td> </tr>" +
+          "<tr> <td>Description: " + req.body.desc + "</td> </tr>" +
           "</table>"
 
 

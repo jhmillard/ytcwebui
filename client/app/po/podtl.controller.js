@@ -16,6 +16,7 @@ class PoDtlCtrl{
       if($stateParams.poid==0){
         this.currentpo = {};
         this.submit = "Add";
+        //Changed some stuff
       }
       else{
         this.currentpo = Po.get({id: $stateParams.poid},()=>{

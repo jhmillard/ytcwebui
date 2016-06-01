@@ -103,3 +103,53 @@
     .factory('PoHoursUsed', PoResource);
 
 })();
+
+
+
+
+
+(function() {
+  function PoValueService($filter,User) {
+
+    this.filter = $filter;
+
+    var PoValue = {
+
+      //CurrentPO is the PO JSON OBJECT
+      getPoHoursUsed(poTimesheets){
+        var sumHoursUsed = 0;
+
+          angular.forEach(poTimesheets,(value,key)=>{
+            sumHoursUsed += poTimesheets[key].hours;
+          })
+
+        return sumHoursUsed;
+
+      },
+      getPoHoursAvailable(currentPo){
+
+      },
+      getPoUserObject(currentPo){
+
+      },
+      isPoActive(currentPo){
+
+      },
+      activePoList(){
+
+      }
+
+    }
+
+    return PoValue;
+  }
+angular.module('ytcwebUirouteApp')
+  .factory('PoValue',PoValueService);
+
+})();
+
+
+
+
+
+

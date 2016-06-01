@@ -3,7 +3,7 @@
 
 class ContractorpoCtrl {
 
-  constructor(Auth,$scope,User, Po, $stateParams,$filter,Chart) {
+  constructor(Auth,$scope,User, Po, $stateParams,$filter,Chart,PoValue) {
 
     $scope.test = "TEST";
 
@@ -17,6 +17,9 @@ class ContractorpoCtrl {
     this.show_invoied_chart = true;
     this.show_charts = false;
     this.chartJSON = [];
+    this.timesheet_show = false;
+    this.trending_show = true;
+    this.sumHoursUsed = 0;
 
     var invoicedList = ['invoiced','sent','received','paid'];
 
@@ -41,9 +44,17 @@ class ContractorpoCtrl {
 
       Po.get({id: $stateParams.poid },(returnPo)=> {
 
+
+
         this.currentPo = returnPo;
         //this.currentuser = Auth.getCurrentUser();
         this.currentuser = User.get({id:this.currentPo.contractor},()=> {
+
+
+          this.poTimesheets = $filter('filter')(this.currentuser.timesheets,{po:{id:returnPo._id}});
+          this.sumHoursUsed = PoValue.getPoHoursUsed(this.poTimesheets);
+
+
 
           //need to get the client
           this.client = User.get({id: this.currentPo.client},()=>{
@@ -73,6 +84,14 @@ class ContractorpoCtrl {
   };
 
   //
+
+  toggleTimesheetView(){
+    this.timesheet_show = !this.timesheet_show;
+  }
+  toggleTrendingView(){
+    this.trending_show = !this.trending_show;
+  }
+
 
   back(){
 
@@ -113,7 +132,9 @@ class ContractorpoCtrl {
             ['Hours Used', this.hours_used],
           ],
           type: 'gauge',
-          onclick: function(d,i){ this.show_hours_used = !this.show_hours_used},
+          onclick: (d,i)=>{
+            this.show_hours_used = !this.show_hours_used
+          },
           onmouseover: function (d, i) { console.log("onmouseover", d, i); },
           onmouseout: function (d, i) { console.log("onmouseout", d, i); }
         },
@@ -140,7 +161,7 @@ class ContractorpoCtrl {
           ['Hours Available', (this.currentPo.hours - this.hours_used)],
         ],
         type: 'gauge',
-        onclick: function(d,i){ this.flip_hours_used() },
+        onclick: function(d,i){ alert(d) },
         onmouseover: function (d, i) { console.log("onmouseover", d, i); },
         onmouseout: function (d, i) { console.log("onmouseout", d, i); }
       },
@@ -165,14 +186,16 @@ class ContractorpoCtrl {
           ['Hours Invoiced', this.hours_invoiced]
         ],
         type: 'gauge',
-        onclick: function (d, i) { console.log("onclick", d, i); },
+        onclick: (d, i)=>{
+          this.toggleTrendingView();
+        },
         onmouseover: function (d, i) { console.log("onmouseover", d, i); },
         onmouseout: function (d, i) { console.log("onmouseout", d, i); }
       },
       gauge:{
         min: 0,
-        max: this.hours_used
-        //max: this.currentPo.hours
+        //max: this.hours_used
+        max: this.currentPo.hours
       },
       color:{
         pattern:[this.gauge_color_invoiced],
@@ -193,7 +216,7 @@ class ContractorpoCtrl {
         xFormat: '%m/%d/%Y', // 'xFormat' can be used as custom format of 'x'
         columns: this.chartJSON,
         labels: true,
-        type: 'area'
+        type: 'bar'
       },
       //subchart: {
       //  show: true

@@ -7,10 +7,17 @@
 </md-toolbar>
 
 
-<md-content layout-padding="">
-  <div>
+<md-content layout-padding="" ng-if="!timedtl.showindeterminate">
+
+
+
+  <div layout-gt-xs="row" class="top-admin" ng-show="true">
+    <div flex layout-margin class="contractor-sublist">
+      <div flex class="grey-heading">
     <form class="form" name="timeForm" novalidate ng-submit="timedtl.register(timeForm)">
 
+      <span><h4>Enter/Update Time Entry</h4></span>
+      <span flex></span>
 
       <div layout-gt-xs="row">
         <div>
@@ -96,62 +103,62 @@
 
       <md-divider></md-divider>
 
-      <div layout-gt-xs="row" md-theme="altTheme" >
-        <div flex="30">
-          <h5>Code Skills</h5>
+      <!--<div layout-gt-xs="row" md-theme="altTheme" >-->
+        <!--<div flex="30">-->
+          <!--<h5>Code Skills</h5>-->
 
-          <md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.code.cplus" aria-label="C++">
-            C++
-          </md-switch>
-          <md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.code.javascript" aria-label="javascript">
-            JavaScript
-          </md-switch>
-          <md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.code.csharp" aria-label="C#">
-            C#
-          </md-switch>
-          <md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.code.plsql" aria-label="plsql">
-            PL/SQL
-          </md-switch>
-          <md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.code.java" aria-label="Java">
-            Java
-          </md-switch>
+          <!--<md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.code.cplus" aria-label="C++">-->
+            <!--C++-->
+          <!--</md-switch>-->
+          <!--<md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.code.javascript" aria-label="javascript">-->
+            <!--JavaScript-->
+          <!--</md-switch>-->
+          <!--<md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.code.csharp" aria-label="C#">-->
+            <!--C#-->
+          <!--</md-switch>-->
+          <!--<md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.code.plsql" aria-label="plsql">-->
+            <!--PL/SQL-->
+          <!--</md-switch>-->
+          <!--<md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.code.java" aria-label="Java">-->
+            <!--Java-->
+          <!--</md-switch>-->
 
-        </div>
-        <div flex="5"></div>
-        <div flex="30">
-          <h5>Database Skills</h5>
+        <!--</div>-->
+        <!--<div flex="5"></div>-->
+        <!--<div flex="30">-->
+          <!--<h5>Database Skills</h5>-->
 
-          <md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.db.oracle" aria-label="oracledb">
-            Oracle DB
-          </md-switch>
-          <md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.db.sqlserver" aria-label="sqlserverdb">
-            SQL Server
-          </md-switch>
-          <md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.db.mysql" aria-label="sqlserverdb">
-            MySQL
-          </md-switch>
-          <md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.db.mongo" aria-label="mongodb">
-            MongoDB
-          </md-switch>
-        </div>
-        <div flex="5"></div>
-        <div flex="30">
-          <h5>Leadership Skills</h5>
+          <!--<md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.db.oracle" aria-label="oracledb">-->
+            <!--Oracle DB-->
+          <!--</md-switch>-->
+          <!--<md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.db.sqlserver" aria-label="sqlserverdb">-->
+            <!--SQL Server-->
+          <!--</md-switch>-->
+          <!--<md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.db.mysql" aria-label="sqlserverdb">-->
+            <!--MySQL-->
+          <!--</md-switch>-->
+          <!--<md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.db.mongo" aria-label="mongodb">-->
+            <!--MongoDB-->
+          <!--</md-switch>-->
+        <!--</div>-->
+        <!--<div flex="5"></div>-->
+        <!--<div flex="30">-->
+          <!--<h5>Leadership Skills</h5>-->
 
-          <md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.leadership.management" aria-label="manage">
-            Management
-          </md-switch>
-          <md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.leadership.training" aria-label="lead">
-            Training
-          </md-switch>
+          <!--<md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.leadership.management" aria-label="manage">-->
+            <!--Management-->
+          <!--</md-switch>-->
+          <!--<md-switch class="md-primary" ng-model="timedtl.timesheet.skillset.leadership.training" aria-label="lead">-->
+            <!--Training-->
+          <!--</md-switch>-->
 
-        </div>
-      </div>
+        <!--</div>-->
+      <!--</div>-->
 
 
 
       <div flex="5" hide-xs="" hide-sm="">
-        <!-- Spacer //-->
+        <br>
       </div>
 
       <div ng-if="!timedtl.showindeterminate">
@@ -164,15 +171,26 @@
 
       </div>
 
-      <div ng-if="timedtl.showindeterminate">
-        <div layout="row" layout-sm="column" md-theme="altTheme"  layout-align="space-around">
-          <md-progress-circular class="md-primary" md-mode="indeterminate"></md-progress-circular>
-        </div>
-      </div>
+
 
       <div flex="5" hide-xs="" hide-sm="">
         <!-- Spacer //-->
       </div>
     </form>
   </div>
+      </div>
+    </div>
+
+
+
+
 </md-content>
+
+<div ng-if="timedtl.showindeterminate">
+  <div layout-sm="column" align="center" md-theme="altTheme"  layout-align="space-around">
+    <br>
+    <h4>Please wait while we register your timesheet... </h4>
+    <br>
+    <md-progress-circular class="md-primary" md-mode="indeterminate" md-diameter="100"></md-progress-circular>
+  </div>
+</div>
