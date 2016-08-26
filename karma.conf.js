@@ -31,6 +31,8 @@ module.exports = function(config) {
       'client/bower_components/c3/c3.js',
       'client/bower_components/c3-angular/c3-angular.min.js',
       'client/bower_components/angular-mocks/angular-mocks.js',
+      'client/bower_components/tinymce-dist/tinymce.js',
+      'client/bower_components/angular-ui-tinymce/src/tinymce.js',
       // endbower
       'node_modules/socket.io-client/socket.io.js',
       'client/app/app.js',

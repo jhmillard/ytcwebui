@@ -13,6 +13,14 @@ angular.module('ytcwebUirouteApp')
     .state('timeentrydtl', {
       url: '/timeentrydtl/:userid/:timesheetid',
       templateUrl: 'app/timeentry/timeentrydtl.html',
+      resolve:{
+        user: function($stateParams,User){
+          return User.get({id: $stateParams.userid}).$promise;
+        },
+        currentpos: function(PoStatus){
+          return PoStatus.get({status: "open"}).$promise;
+        }
+      },
       controller: 'TimeentryDetailCtrl',
       controllerAs: 'timedtl',
       authenticate: 'contractor',

@@ -28,7 +28,7 @@
 
       <ul class="nav navbar-nav navbar-right">
         <li ng-show="nav.isContractor()"  ui-sref-active="active"><a ui-sref="contractordash">Dashboard</a></li>
-        <li ng-show="nav.isContractor()"  ui-sref-active="active"><a ui-sref="timeentry">Time Entry</a></li>
+        <li ng-show="nav.isContractor()"  ui-sref-active="active"><a href="timeentrydtl/{{nav.getCurrentUser()._id}}">Time Entry</a></li>
         <li ng-hide="nav.isLoggedIn()" ui-sref-active="active"><a href="./login">Login</a></li>
         <!--<li ng-show="nav.isLoggedIn()"><p class="navbar-text">Hello {{ getCurrentUser().first_name }}</p> </li>-->
         <!--<li ng-show="nav.isLoggedIn()" ui-sref-active="active"><a ui-sref="settings"><span class="glyphicon glyphicon-cog"></span></a></li>-->

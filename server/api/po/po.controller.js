@@ -164,6 +164,13 @@ export function findstatus(req,res) {
     .catch(handleError(res));
 }
 
+// Gets a single Po from the DB
+export function getpoid(req, res) {
+  Po.findOne({poid: req.params.poid})
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+}
+
 export function insert_milestone(req,res){
 
 }

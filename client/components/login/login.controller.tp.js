@@ -16,6 +16,22 @@ class LoginControllerTP {
     this.getCurrentUser = Auth.getCurrentUser;
     this.isAdmin = Auth.isAdmin;
     this.isContractor = Auth.isContractor;
+
+    //TO DO - Figure out how to make the main login
+    //if(this.isLoggedIn){
+    //  if (this.getCurrentUser.role == 'admin') {
+    //    this.$state.go('admindash')
+    //  }
+    //  else if (this.getCurrentUser.role == 'client') {
+    //    this.$state.go('clientdash')
+    //  }
+    //  else if (this.getCurrentUser.role == 'contractor') {
+    //    this.$state.go('contractordash')
+    //  }
+    //  else {
+    //    this.$state.go('main');
+    //  }
+    //}
   }
 
   login(form) {

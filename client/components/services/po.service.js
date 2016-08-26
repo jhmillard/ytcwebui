@@ -29,6 +29,25 @@
 (function() {
 
   function PoResource($resource) {
+    return $resource('/api/pos/poid/:poid', {
+      poid: '@poid'
+    }, {
+      get: {
+        method:'GET',
+        isArray:false
+      }
+    });
+  }
+
+  angular.module('ytcwebUirouteApp')
+    .factory('PoId', PoResource);
+
+})();
+
+
+(function() {
+
+  function PoResource($resource) {
     return $resource('/api/pos/contractor/:contractor', {
       contractor: '@contractor'
     }, {
@@ -126,7 +145,14 @@
         return sumHoursUsed;
 
       },
-      getPoHoursAvailable(currentPo){
+      getPoHoursAvailable(currentPo,poTimsheets){
+        var sumHoursUsed = 0;
+
+        angular.forEach(poTimsheets,(value,key)=>{
+          sumHoursUsed += poTimsheets[key].hours;
+        })
+
+        return (currentPo.hours - sumHoursUsed);
 
       },
       getPoUserObject(currentPo){
@@ -136,6 +162,9 @@
 
       },
       activePoList(){
+
+      },
+      getNextPoId(){
 
       }
 

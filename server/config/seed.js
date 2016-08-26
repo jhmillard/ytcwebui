@@ -34,10 +34,10 @@ User.find({}).removeAsync()
         provider: 'local',
         first_name: 'John',
         last_name: 'Millard',
-        email: 'test@test.com',
-        password: 'test',
+        email: 'john.millard@yellowtoadconsulting.com',
+        password: '$ytc123',
         role: 'contractor',
-        contractor_rate: 100.00,
+        contractor_rate: 145.00,
         timesheets:[],
         img_url: "assets/images/ytc_president.jpg"
       },
@@ -77,13 +77,13 @@ User.find({}).removeAsync()
       },
       {
         provider: 'local',
-        first_name: 'Test',
-        last_name: 'Client',
+        first_name: 'Diane',
+        last_name: 'Hite',
         client_name: 'Ingram Micro',
-        email: 'client@test.com',
-        password: 'test',
+        email: 'diane.hite@ingrammicro.com',
+        password: 'br1ghtp01nt',
         role: 'client',
-        client_rate: 110.00,
+        client_rate: 145.00,
         timesheets:[],
         img_url: "assets/images/ingram_micro.jpeg"
       })

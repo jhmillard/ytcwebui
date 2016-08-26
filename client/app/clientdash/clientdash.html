@@ -4,7 +4,7 @@
     <span flex></span>
     <div layout-margin hide-sm hide-xs>{{clientdash.currentUser.first_name}} {{clientdash.currentUser.last_name}}:</div>
     <div layout-margin hide-sm hide-xs  >{{clientdash.currentUser.client_name}}</div>
-    <div><img class="img-user-avatar" src="{{clientdash.currentUser.img_url}}" class="md-avatar" alt="image caption"></div>
+    <div><img class="img-user-avatar" src="{{clientdash.currentUser.img_url}}"  alt="image caption"></div>
 
   </div>
 </md-toolbar>
@@ -36,9 +36,9 @@
               <td md-cell layout-margin><img class="img-user-avatar" src="{{p.contractor_image}}" class="md-avatar" alt="image caption"> {{p.contractor_name}}</td>
 
               <!--<td md-cell ng-show="p.warning_high" layout-margin><i class="material-icons" style="color:red">warning</i></td>-->
-              <td md-cell ng-show="p.warning_high" layout-margin ><i class="material-icons md-36" style="color:red">fiber_manual_record</i></td>
-              <td md-cell ng-show="p.warning_medium" layout-margin ><i class="material-icons md-36" style="color:orange">fiber_manual_record</i></td>
-              <td md-cell ng-show="p.warning_low" layout-margin ><i class="material-icons md-36" style="color:green">fiber_manual_record</i></td>
+              <td md-cell ng-show="p.warning_high" layout-margin ><i class="material-icons md-24" style="color:red">fiber_manual_record</i></td>
+              <td md-cell ng-show="p.warning_medium" layout-margin ><i class="material-icons md-24" style="color:orange">fiber_manual_record</i></td>
+              <td md-cell ng-show="p.warning_low" layout-margin ><i class="material-icons md-24" style="color:green">fiber_manual_record</i></td>
 
 
               <!--<td md-cell><a ng-click="time.removeitem($index)"><md-button><i class="material-icons">clear</i></md-button></a></td>-->
@@ -49,7 +49,7 @@
           </table>
         </md-table-container>
 
-        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{contractordash.contractorTimesheets.length}}"></md-table-pagination>
+        <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{clientdash.clientPos.length}}"></md-table-pagination>
 
       </div>
 
@@ -62,7 +62,7 @@
       <div layout="row" layout-align="center center" layout-margin>
         <div flex="33">
           <h6>Low</h6>
-          <h7>( <50% utilization )</h7>
+          <h7>( less than 50% utilization )</h7>
         </div>
         <div flex="33">
           <h6>Medium</h6>
@@ -70,7 +70,7 @@
         </div>
         <div flex="33">
           <h6>High</h6>
-          <h7>( >90% utilization )</h7>
+          <h7>( greater than 90% utilization )</h7>
         </div>
       </div>
       <div layout="row" layout-align="center center" layout-margin>
@@ -113,9 +113,9 @@
               <td md-cell>
                 <md-chips>
                   <md-chip ng-show="i.status=='entered'" style="background-color:yellow; color:darkslategrey">Entered</md-chip>
-                  <md-chip ng-show="i.status=='invoiced'" style="background-color:red; color:white">Invoiced</md-chip>
-                  <md-chip ng-show="i.status=='sent'" style="background-color:green; color:white">Sent</md-chip>
-                  <md-chip ng-show="i.status=='received'" style="background-color:green; color:white">Complete</md-chip>
+                  <md-chip ng-show="i.status=='invoiced'" style="background-color:orange; color:white">Invoiced</md-chip>
+                  <md-chip ng-show="i.status=='sent'" style="background-color:red; color:white">Sent</md-chip>
+                  <md-chip ng-show="i.status=='received'" style="background-color:green; color:white">Received</md-chip>
                   <md-chip ng-show="i.status=='paid'" style="background-color:green; color:white">Complete</md-chip>
                 </md-chips>
               </td>
@@ -165,8 +165,8 @@
   <div flex layout-margin class="contractor-sublist">
     <div flex layout-margin class="grey-heading">
       <div layout-margin>
-        <h4>Invoiced</h4>
-        <h6>(Time invoiced of time entered)</h6>
+        <h4>PO Hours breakdown</h4>
+        <h6>(Current open PO usage)</h6>
         <div id="chart1"></div>
       </div>
     </div>
