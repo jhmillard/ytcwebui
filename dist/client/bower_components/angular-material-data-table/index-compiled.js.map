@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.js"],"names":[],"mappings":";;AAEA,OAAO,CAAC,kBAAkB,CAAC,CAAC;AAC5B,OAAO,CAAC,0BAA0B,CAAC,CAAC;;AAEpC,MAAM,CAAC,OAAO,GAAG,eAAe,CAAC","file":"index-compiled.js","sourcesContent":["// support for Browserify\n\nrequire('angular-material');\nrequire('./dist/md-data-table.min');\n\nmodule.exports = 'md.data.table';\n"]}
